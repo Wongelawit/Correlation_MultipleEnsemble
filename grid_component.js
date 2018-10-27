@@ -9,7 +9,7 @@
   *     grid_dimension           {int}    Dimension of the grid
   *     distractor_size          {int}    Size of the distractor population
   *
-  * @return [row, col] (JSON stringified so can do object comparisons)        
+  * @return jsPsych trial object      
 */ 
 function generate_grid_object (distractor, target, duration, grid_dimension, distractor_size){
 
