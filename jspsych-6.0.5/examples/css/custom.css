@@ -1,0 +1,48 @@
+
+
+	.html, body {
+		height:100%;
+		margin:0;
+		padding:0;
+		background-color: white;
+		background-repeat:no-repeat;
+		background-size: cover;
+		-webkit-background-size: cover;
+		-moz-background-size: cover;
+		-o-background-size: cover;
+		overflow-x: hidden;
+		color: rgb(247, 255, 250);
+		font-variant: normal normal;
+	}
+	.container {
+		margin-top: 100px;
+		position:absolute;
+		top:30%;
+		left:12%;
+		max-width:80%;
+	}
+
+
+	.btn-default {
+		color: rgba(5, 46, 50, 0.85)!important;
+	}
+	.btn-danger {
+		color: #043d3e;
+		background-color: #f8f9fa;
+		border-color: #043d3e;
+		padding: 7px 10px;
+		font-size: 12px;
+		border-radius: 2px;
+	}
+	.btn-group-lg>.btn, .btn-lg {
+		padding: .08rem 0.2rem;
+		font-size: 1.00rem;
+		line-height: 1.2;
+		border-radius: .2rem;
+		margin-left: 8px;
+	}
+
+
+	.btn btn-success btn-block{
+		color: rgba(5, 46, 50, 0.85);
+	}
