@@ -37,25 +37,25 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
         default: 10,
         description: 'Number specifying number of distractors in grid.'
       },
-        target_number: {
-            type: jsPsych.plugins.parameterType.INT,
-            pretty_name: 'Target number',
-            array: true,
-            default: 10,
-            description: 'Number specifying number of targets in grid.'
-        },
       trial_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Trial duration',
         default: 1000,
         description: 'How long to show the stimulus for in milliseconds.'
+      },
+	  target_number: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Target number',
+        array: true,
+        default: 10,
+        description: 'Number specifying number of targets in grid.'
       }
     }
   }
 
   plugin.trial = function(display_element, trial) {
 
-    display_element.innerHTML = plugin.generate_stimulus(trial.stimuli, trial.grid_size, trial.distractor_number);
+    display_element.innerHTML = plugin.generate_stimulus(trial.stimuli, trial.grid_size, trial.distractor_number, trial.target_number);
 
     jsPsych.pluginAPI.setTimeout(function() {
       //endTrial();                               // !!! Uncomment this to enable trial_duration
@@ -74,7 +74,7 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
   };
 
 
-  plugin.generate_stimulus = function(stimuli, grid_size, distractor_number,target_number) {
+  plugin.generate_stimulus = function(stimuli, grid_size, distractor_number, target_number) {
 
     let rows = grid_size[0];
     let columns = grid_size[1];
@@ -93,8 +93,8 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
     `<div class='grid-container' style = 'grid-template-columns: repeat(${columns}, minMax(10px, 1fr));` +
     ` grid-template-rows: repeat("${rows}"}, minMax(10px, 1fr));'>`;
 
-    let target_coordinate = generate_target_coordinates(rows, columns, target_number)
-    let distractor_coordinates = generate_coordinates(rows, columns, distractor_number, target_coordinate);
+    let target_coordinates = generate_target_coordinates(rows, columns, target_number);
+    let distractor_coordinates = generate_coordinates(rows, columns, distractor_number, target_coordinates);
 
     for (let r = 0; r < rows; r++){
       for (let c = 0; c < columns; c++){
@@ -103,12 +103,11 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
 
         if (distractor_coordinates.includes(curr_coord)) {
           html += distractor_html;
-        } else if (curr_coord == target_coordinate) {
+        } else if (target_coordinates.includes(curr_coord)) {
           html += target_html;
         } else {
           html += empty_item_html;
         }
-
       }
     }
 
@@ -116,22 +115,45 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
 
   };
 
-  // /**
-  //  * Generates random coordinate given row and column values.
-  //  *
-  //  * @param  row                  {int}
-  //  *         col                  {int}
-  //  *
-  //  * @return [row, col] (JSON stringified so can do object comparisons)
-  //  */
-  // function generate_random_coordinate(row, col) {
-  //
-  //   let x = get_random_int(row);
-  //   let y = get_random_int(col);
-  //
-  //   return JSON.stringify([x, y]);
-  // }
+  /**
+   * Generates random coordinate given row and column values.
+   *
+   * @param  row                  {int}
+   *         col                  {int}
+   *
+   * @return [row, col] (JSON stringified so can do object comparisons)        
+   */ 
+  function generate_random_coordinate(row, col) {
 
+    let x = get_random_int(row);
+    let y = get_random_int(col);
+
+    return JSON.stringify([x, y]);
+  }
+
+    /**
+   * Generates a random population.
+   *
+   * @param  row                  {int}
+   *         col                  {int}
+   *         size                 {int}
+   *
+   * @return coordinates          [ [x1, y1], [x2, y2] ... ]         
+   */ 
+  function generate_target_coordinates(row, col, size) {
+
+    let coordinates = [];
+
+    while (coordinates.length < size) {
+      let coord = generate_random_coordinate(row, col);
+
+      if (!coordinates.includes(coord)){
+        coordinates.push(coord);
+      }
+    }
+    return coordinates;
+  }
+  
   /**
    * Generates a random population that excludes a coordinate.
    *
@@ -140,8 +162,8 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
    *         size                 {int}
    *         excluding_coordinate [row, col]
    *
-   * @return coordinates          [ [x1, y1], [x2, y2] ... ]
-   */
+   * @return coordinates          [ [x1, y1], [x2, y2] ... ]         
+   */ 
   function generate_coordinates(row, col, size, excluding_coordinate) {
 
     let coordinates = [];
@@ -156,21 +178,6 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
 
     return coordinates;
   }
-
-    function generate_target_coordinates(row, col, size) {
-
-        let coordinates = [];
-
-        while (coordinates.length < size) {
-            let coord = generate_random_coordinate(row, col);
-
-            if (!coordinates.includes(coord)){
-                coordinates.push(coord);
-            }
-        }
-
-        return coordinates;
-    }
 
   /**
    * Generates random integer given max value.
