@@ -3,12 +3,10 @@
   * Creates a grid of specified dimension and will display one target
   * among a distractor population. 
   *
-  * @param
-  *     distractor               {string} Path to img of distractor
+  * @param  distractor           {string} Path to img of distractor
   *     target                   {string} Path to img of target
   *     duration                 {int}    Time in ms for grid to display
   *     grid_dimension           {int}    Dimension of the grid
- *      target_size              {int}    Size of the distractor population
   *     distractor_size          {int}    Size of the distractor population
   *
   * @return jsPsych trial object      
@@ -18,11 +16,11 @@ function generate_grid_object (distractor, target, duration, grid_dimension, dis
   let stimuli_set = [distractor, target];
 
   return {
-        type: 'multiple-ensembles-grid',
+      type: 'multiple-ensembles-grid',
         trial_duration: duration,
         grid_size: [grid_dimension, grid_dimension],
-        distractor_number:distractor_size,
-        target_number:target_size,
-        stimuli: stimuli_set
+        distractor_number: distractor_size,
+		target_number: target_size,
+      stimuli: stimuli_set
   };
 }
