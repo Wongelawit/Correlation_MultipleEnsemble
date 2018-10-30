@@ -1,49 +1,52 @@
 <!DOCTYPE html>
 <html>
-  <head>
+<head>
 
-    <title>Grid Component</title>
+  <title>Grid Component</title>
 
-    <script src="jspsych-6.0.5/jspsych.js"></script>
-    <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
-    <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
-    <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js"></script>
-    <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+  <script src="jspsych-6.0.5/jspsych.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
+  <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js"></script>
+  <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
-    <script src="jspsych-6.0.5/grid_component.js"></script>
+  <script type="text/javascript" src="grid_component.js"></script>
 
-    <style>
+  <style>
+    img{
+      z-index: -1;
+      position: relative;
+      width: auto;
+      display: block;
+    }
     .grid-container {
       display: grid;
       padding: 10px;
     }
     .grid-item {
-      padding: 1px;
-      font-size: 30px;
-      text-align: center;
+      width: 100%;
+      height: 100%;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      margin-left: 1px;
+      margin-right: 1px;
     }
-    </style>
+  </style>
 
-  </head>
-  <body>
-  </body>
-  <script>
-
+</head>
+<body>
+</body>
+<script>
     var timeline = [];
-
     var distractor = "stimuli/blue.png";
     var target = "stimuli/orange.png";
-
-    let grid = generate_grid_object (distractor, target, 1000, 50, 150, 50);
-
+    let grid = generate_grid_object (distractor, target, 1000, 20, 15, 2);
     timeline.push(grid);
-
     jsPsych.init({
-      timeline: timeline,
-      on_finish: function() {
-        jsPsych.data.displayData();
-      }
+        timeline: timeline,
+        on_finish: function() {
+            jsPsych.data.displayData();
+        }
     });
-
-  </script>
-  </html>
+</script>
+</html>
