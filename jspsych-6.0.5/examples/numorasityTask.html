@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="../jspsych.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="../plugins/jspsych-multiple-ensembles-grid.js"></script>
+    <script scc="../plugins/grid_component.js"></script>
+    <link rel="stylesheet" href="../css/jspsych.css"></link>
+    <style>
+    .grid-container {
+      display: grid;
+      padding: 10px;
+    }
+    .grid-item {
+      padding: 1px;
+      font-size: 30px;
+      text-align: center;
+    }
+    </style>
+  </head>
+  <body></body>
+  <script>
+  /* create timeline */
+    var timeline = [];
+
+    /* define welcome message trial */
+    var welcome = {
+      type: "html-keyboard-response",
+      stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(welcome);
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "<p>You will fixate on the cross displayed in the center of the screen before each trial." +
+          "</p><p>Keep your attention there and watch for a display of different colored squares to appear.  " +
+          " </p>Please press the <strong>“Z”</strong> key if believe there are <strong>more darker</strong>, [red, blue, yellow, or green] squares, </p>" +
+          "<p> please press the <strong>“M”</strong> key if you believe there are <strong>more lighter</strong>, [red, blue yellow, or green] squares in the display. " +
+          "</div>"+
+          "<p>Press any key to begin.</p>",
+      post_trial_gap: 2000
+    };
+    timeline.push(instructions);
+
+    /* test trials */
+    var distractor = "stimuli/blue.png";
+    var target = "stimuli/orange.png";
+    let stimuli_set = [distractor, target];
+
+    var test= {
+      type: 'multiple-ensembles-grid',
+      stimulus: (distractor, target, duration, grid_dimension, distractor_size, target_size)
+      duration: 1000,
+      grid_size: [30, 30],
+      distractor_number: 10,
+      target_number: 20,
+      stimuli: stimuli_set
+    }
+
+    timeline.push(test);
+
+    /* start the experiment */
+    jsPsych.init({
+      timeline: timeline
+    });
+  </script>
+  </html>
