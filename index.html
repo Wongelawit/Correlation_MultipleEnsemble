@@ -43,11 +43,27 @@
   <script>
 
     var timeline = [];
+    var welcome = {
+        type: "html-keyboard-response",
+        stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(welcome);
+    var instructions = {
+        type: "html-keyboard-response",
+        stimulus: "<p>You will fixate on the cross displayed in the centre " +
+            "of the screen.</p><p> Keep your attention there and watch for a display of " +
+            "different colored squares to appear.</p><p> Please press the 'z' key if you believe " +
+            "there are more darker squares,</p><p> and press the 'm' key if you believe there are more " +
+            "lighter squares in the display.</p>" +
+            "<p>Press any key to begin.</p>",
+        post_trial_gap: 1000
+    };
+    timeline.push(instructions);
 
-    var distractor = "stimuli/blue.png";
+    var distractor = "stimuli/green.png";
     var target = "stimuli/orange.png";
 
-    let grid = generate_grid_object (distractor, target, 1000, 20, 15, 2);
+    let grid = generate_grid_object (distractor, target, 1000, 20, 15, 10);
 
     timeline.push(grid);
 
