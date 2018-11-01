@@ -37,35 +37,126 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
         default: [10, 1],
         description: 'Array specifying target and distractor distribution sizes.'
       },
+      choices: {
+        type: jsPsych.plugins.parameterType.KEYCODE,
+        array: true,
+        pretty_name: 'Choices',
+        default: jsPsych.ALL_KEYS,
+        description: 'The keys the subject is allowed to press to respond to the stimulus.'
+      },
+      prompt: {
+        type: jsPsych.plugins.parameterType.STRING,
+        pretty_name: 'Prompt',
+        default: null,
+        description: 'Any content here will be displayed below the stimulus.'
+      },
+      stimulus_duration: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Stimulus duration',
+        default: null,
+        description: 'How long to hide the stimulus.'
+      },
       trial_duration: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Trial duration',
-        default: 1000,
-        description: 'How long to show the stimulus for in milliseconds.'
-      }
+        default: null,
+        description: 'How long to show trial before it ends.'
+      },
+      response_ends_trial: {
+        type: jsPsych.plugins.parameterType.BOOL,
+        pretty_name: 'Response ends trial',
+        default: true,
+        description: 'If true, trial will end when subject makes a response.'
+      },
     }
   }
 
   plugin.trial = function(display_element, trial) {
 
-    display_element.innerHTML = plugin.generate_stimulus(trial.stimuli, trial.grid_size, trial.distribution_sizes);
+    var new_html = plugin.generate_stimulus(trial.stimuli, trial.grid_size, trial.distribution_sizes);
 
-    jsPsych.pluginAPI.setTimeout(function() {
-      //endTrial();                               // !!! Uncomment this to enable trial_duration
-    }, trial.trial_duration);
+    // add prompt
+    if(trial.prompt !== null){
+      new_html += trial.prompt;
+    }
 
-    function endTrial() {
+    // draw
+    display_element.innerHTML = new_html;
 
-      display_element.innerHTML = '';
+    // store response
+    var response = {
+      rt: null,
+      key: null
+    };
 
+    // function to end trial when it is time
+    var end_trial = function() {
+
+      // kill any remaining setTimeout handlers
+      jsPsych.pluginAPI.clearAllTimeouts();
+
+      // kill keyboard listeners
+      if (typeof keyboardListener !== 'undefined') {
+        jsPsych.pluginAPI.cancelKeyboardResponse(keyboardListener);
+      }
+
+      // gather the data to store for the trial
       var trial_data = {
-        "stimulus": JSON.stringify(trial.stimuli)
+        "rt": response.rt,
+        "stimulus": trial.stimulus,
+        "key_press": response.key
       };
 
-      jsPsych.finishTrial(trial_data);
-    }
-  };
+      // clear the display
+      display_element.innerHTML = '';
 
+      // move on to the next trial
+      jsPsych.finishTrial(trial_data);
+    };
+
+    // function to handle responses by the subject
+    var after_response = function(info) {
+
+      // after a valid response, the stimulus will have the CSS class 'responded'
+      // which can be used to provide visual feedback that a response was recorded
+      //display_element.querySelector('#jspsych-html-keyboard-response-stimulus').className += ' responded';
+
+      // only record the first response
+      if (response.key == null) {
+        response = info;
+      }
+
+      if (trial.response_ends_trial) {
+        end_trial();
+      }
+    };
+
+    // start the response listener
+    if (trial.choices != jsPsych.NO_KEYS) {
+      var keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
+        callback_function: after_response,
+        valid_responses: trial.choices,
+        rt_method: 'date',
+        persist: false,
+        allow_held_key: false
+      });
+    }
+
+    // hide stimulus if stimulus_duration is set
+    if (trial.stimulus_duration !== null) {
+      jsPsych.pluginAPI.setTimeout(function() {
+        display_element.innerHTML = '';
+      }, trial.stimulus_duration);
+    }
+
+    // end trial if trial_duration is set
+    if (trial.trial_duration !== null) {
+      jsPsych.pluginAPI.setTimeout(function() {
+        end_trial();
+      }, trial.trial_duration);
+    }
+
+  };
 
   plugin.generate_stimulus = function(stimuli, grid_size, distribution_size) {
 
