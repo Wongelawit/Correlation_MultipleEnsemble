@@ -50,6 +50,17 @@
       <div id = "feedback"><p><h5>Select color from dropdown.</h5></p></div>
     </span>
       
+    <p>
+    <p>  
+
+      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" >
+      <label class="form-check-label" for="defaultCheck1">
+        Run shortened version
+      </label>
+
+    <p>
+    <p>
+
     <div class="btn-group">
 
       <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 250px">
@@ -65,10 +76,10 @@
 
       </div>
 
-      </div>
-      <p>
-      <p>  
-      <input id = "start" type="button" onclick="" class="btn btn-success" style="display: none; width: 250px;" value = "S T A R T">
+    </div>
+    <p>
+    <p>  
+    <input id = "start" type="button" onclick="" class="btn btn-success" style="display: none; width: 250px;" value = "S T A R T">
     </div>
 
   </body>
@@ -84,7 +95,17 @@
  
       // Set URL for start
       document.getElementById("start").onclick = function () {
-        location.href = "visualSearch.html?color=" + color;
+
+        let url = "visualSearch.html?color=" + color;
+
+        // Check if want the shortened version or not
+        let checkbox = document.getElementById("defaultCheck1");
+
+        if (checkbox.checked){
+          location.href = url + "&short=true";
+        } else {
+          location.href = url + "&short=false";
+        }
       };
 
       // Make button visible

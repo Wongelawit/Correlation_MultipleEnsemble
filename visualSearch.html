@@ -34,8 +34,10 @@
       return vars;
     }
 
-    // Extract color from URL param
-    let color = getUrlVars()["color"];
+    let params = getUrlVars();
+    let color = params["color"];
+    let is_short = params["short"];
+
     let subconditions = get_subconditions(color);
     
     // ---------------------------------------------------------------------
@@ -125,6 +127,11 @@
     // Randomize order
     let shuffled_subconditions = subconditions.sort( () => Math.random() - 0.5);
 
+    // If want the shortened version, just slice out 5
+    if (is_short === "true"){
+      shuffled_subconditions = shuffled_subconditions.slice(0, 5);
+    }
+
     for (let subcondition of shuffled_subconditions){
 
       stimuli = {
@@ -135,6 +142,7 @@
         distribution_sizes: function() {
 
           console.log("TARGET PRESENT: " + subcondition["target_present"]);
+          
           if (subcondition["target_present"]) {
             return [subcondition["size"], 1];
           } else {

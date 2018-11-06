@@ -6,7 +6,7 @@ const DISTANCES = ["-2", "-1", "+1", "+2"];
 const SET_SIZES = [8, 16, 32];
 
 /* Returns array of all subconditions for a given color. 
- * Length 234 in total.
+ * Length 234 in total (78 x 3).
  *	
  * @ param color 			{string} "BLUE", "GREEN", "RED", "YELLOW"
  *
