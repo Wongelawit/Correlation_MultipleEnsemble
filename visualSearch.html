@@ -213,6 +213,11 @@
       timeline: timeline,
       on_finish: function() {
         jsPsych.data.displayData();
+        jsPsych.data.get().filter({type: 'test'})
+                          .ignore('time_elapsed')
+                          .ignore('internal_node_id')
+                          .ignore('trial_type')
+                          .localSave('csv','test.csv');
       }
     });
 
