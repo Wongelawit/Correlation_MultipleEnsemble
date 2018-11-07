@@ -5,74 +5,82 @@ const OPPOSITE_COLORS = {"BLUE":"YELLOW", "YELLOW":"BLUE", "GREEN":"RED", "RED":
 const DISTANCES = ["-2", "-1", "+1", "+2"];
 const SET_SIZES = [8, 16, 32];
 
+const HEX_COLORS =
 // BLUES
-{"BLUE_LUM-2" : #005a95,
-"BLUE_LUM-1" : #006ca9,
-"BLUE_LUM" : #007ebc, // TARGET
-"BLUE_LUM+1" : #2391d1,
-"BLUE_LUM+2" : #43a4e6,
+{"BLUE_LUM-2" : "#005a95",
+"BLUE_LUM-1" : "#006ca9",
+"BLUE_LUM" : "#007ebc", // TARGET
+"BLUE_LUM+1" : "#2391d1",
+"BLUE_LUM+2" : "#43a4e6",
 
-"BLUE_CHR-2" : #6a7887e,
-"BLUE_CHR-1" : #4d7ba1,
-"BLUE_CHR" : #007ebc, // TARGET
-"BLUE_CHR+1" : #0081d9,
-"BLUE_CHR+2" : #0085f7,
+"BLUE_CHR-2" : "#6a7887e",
+"BLUE_CHR-1" : "#4d7ba1",
+"BLUE_CHR" : "#007ebc", // TARGET
+"BLUE_CHR+1" : "#0081d9",
+"BLUE_CHR+2" : "#0085f7",
 
-"BLUE_HUE-2" : #008897,
-"BLUE_HUE-1" : #0085ad,
-"BLUE_HUE" : #007ebc, // TARGET
-"BLUE_HUE+1" : #5575bc,
-"BLUE_HUE+2" : #816ab1,
+"BLUE_HUE-2" : "#008897",
+"BLUE_HUE-1" : "#0085ad",
+"BLUE_HUE" : "#007ebc", // TARGET
+"BLUE_HUE+1" : "#5575bc",
+"BLUE_HUE+2" : "#816ab1",
 
 // GREENS
-"GREEN_LUM-2" : #006228,
-"GREEN_LUM-1" : #007438,
-"GREEN_LUM" : #20874a, // TARGET
-"GREEN_LUM+1" : #399b5c,
-"GREEN_LUM+2" : #4eaf6e,
+"GREEN_LUM-2" : "#006228",
+"GREEN_LUM-1" : "#007438",
+"GREEN_LUM" : "#20874a", // TARGET
+"GREEN_LUM+1" : "#399b5c",
+"GREEN_LUM+2" : "#4eaf6e",
 
-"GREEN_CHR-2" : #5e7e66,
-"GREEN_CHR-1" : #468358,
-"GREEN_CHR" : #20874a,
-"GREEN_CHR+1" : #008d33,
-"GREEN_CHR+2" : ,
+"GREEN_CHR-2" : "#5e7e66",
+"GREEN_CHR-1" : "#468358",
+"GREEN_CHR" : "#20874a", // TARGET
+"GREEN_CHR+1" : "#008d33",
+"GREEN_CHR+2" : "#00920c",		
 
-"GREEN_HUE-2" : hex value,
-"GREEN_HUE-1" : hex value,
-"GREEN_HUE+1" : hex value,
-"GREEN_HUE+2" : hex value,
+"GREEN_HUE-2" : "#6b7e21",
+"GREEN_HUE-1" : "#4d8433",
+"GREEN_HUE" : "#20874a", // TARGET
+"GREEN_HUE+1" : "#008a67",
+"GREEN_HUE+2" : "#008b82",
 
 //REDS
-"RED_LUM-2" : hex value,
-"RED_LUM-1" : hex value,
-"RED_LUM+1" : hex value,
-"RED_LUM+2" : hex value,
+"RED_LUM-2" : "#9e210f",
+"RED_LUM-1" : "#b63821",
+"RED_LUM" : "#cd4c32", // TARGET
+"RED_LUM+1" : "#e45f43",
+"RED_LUM+2" : "#fe7657",
 
-"RED_CHR-2" : hex value,
-"RED_CHR-1" : hex value,
-"RED_CHR+1" : hex value,
-"RED_CHR+2" : hex value,
+"RED_CHR-2" : "#aa6453",
+"RED_CHR-1" : "#bc5942",
+"RED_CHR" : "#cd4c32", // TARGET
+"RED_CHR+1" : "#dc391f",
+"RED_CHR+2" : "#eb1607",
 
-"RED_HUE-2" : hex value,
-"RED_HUE-1" : hex value,
-"RED_HUE+1" : hex value,
-"RED_HUE+2" : hex value,
+"RED_HUE-2" : "#d83862",
+"RED_HUE-1" : "#d54049",
+"RED_HUE" : "#cd4c32", // TARGET
+"RED_HUE+1" : "#c05819",
+"RED_HUE+2" : "#ae6500",
 
 //YELLOWS
-"YELLOW_LUM-2" : hex value,
-"YELLOW_LUM-1" : hex value,
-"YELLOW_LUM+1" : hex value,
-"YELLOW_LUM+2" : hex value,
+"YELLOW_LUM-2" : "#b19e41",
+"YELLOW_LUM-1" : "#c6b254",
+"YELLOW_LUM" : "#dbc667", // TARGET
+"YELLOW_LUM+1" : "#f1da7a",
+"YELLOW_LUM+2" : "#fff08e",
 
-"YELLOW_CHR-2" : hex value,
-"YELLOW_CHR-1" : hex value,
-"YELLOW_CHR+1" : hex value,
-"YELLOW_CHR+2" : hex value,
+"YELLOW_CHR-2" : "#d1c6a3",
+"YELLOW_CHR-1" : "#d7c685",
+"YELLOW_CHR" : "#dbc667", // TARGET
+"YELLOW_CHR+1" : "#dec644",
+"YELLOW_CHR+2" : "#dfc602",
 
-"YELLOW_HUE-2" : hex value,
-"YELLOW_HUE-1" : hex value,
-"YELLOW_HUE+1" : hex value,
-"YELLOW_HUE+2" : hex value};
+"YELLOW_HUE-2" : "#ffaf7d",
+"YELLOW_HUE-1" : "#f4bc6a",
+"YELLOW_HUE" : "#dbc667", // TARGET
+"YELLOW_HUE+1" : "#bfce6d",
+"YELLOW_HUE+2" : "#9fd57d"};
 
 /* Returns array of all subconditions for a given color. 
  * Length 234 in total (78 x 3).
@@ -109,9 +117,9 @@ function get_subcondition_set(color, dimension){
 	let subconditions = [];
 
 	if (!COLORS.includes(color)){
-		throw Error(color + " is not supported.")
+		throw Error(color + " is not supported.");
 	} else if (!DIMENSIONS.includes(dimension)){
-		throw Error(dimension + " is not supported.")
+		throw Error(dimension + " is not supported.");
 	}
 
 	// Get target path
