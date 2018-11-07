@@ -37,8 +37,16 @@
     let params = getUrlVars();
     let color = params["color"];
     let is_short = params["short"];
+    let num_repeats = params["repeat"]
+    let subject_id = params["subjectID"];
 
-    let subconditions = get_subconditions(color);
+    let set = get_subcondition_set(color);
+    let subconditions = [];
+    debugger;
+
+    for (let i = 0; i < num_repeats; i++){
+      subconditions = subconditions.concat(set);
+    }
     
     // ---------------------------------------------------------------------
     // WELCOME
@@ -96,8 +104,8 @@
 
     var feedback = {
       type: 'html-keyboard-response',
-      choices: jsPsych.NO_KEYS, //No responses will be accepted as a valid response.
-      trial_duration: 500,
+      trial_duration: null,
+      response_ends_trial: true,
       data: {type: 'feedback'},
       stimulus: function(){
 
@@ -157,6 +165,7 @@
         on_start: function(trial) {
           trial.data = subcondition;
           trial.data.type = "test";
+          trial.data.subject_id = subject_id;
           trial.data.trial = count;
           count++;
         },
@@ -233,7 +242,8 @@
                                 .ignore('distractor_path')
                                 .ignore('type');
 
-        trial_data.localSave('csv','visualSearch.csv');
+        let string = subject_id + "_visualSearch.csv";
+        trial_data.localSave('csv', string);
       }
     });
 

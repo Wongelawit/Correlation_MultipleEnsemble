@@ -53,18 +53,28 @@
     <p>
     <p>  
 
-      <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" >
-      <label class="form-check-label" for="defaultCheck1">
-        Run shortened version
-      </label>
+    <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" >
+    <label class="form-check-label" for="defaultCheck1">
+      Run shortened version (for testing)
+    </label>
+
+    <div class="form-row" style="margin: 20px">
+      <label for="subjectID_input">Subject ID:</label>
+      <input type="text" class="form-control" id="subjectID_input" placeholder="12345" style="text-align: center">
+    </div>
+
+    <div class="form-row" style="margin: 20px">
+      <label for="repeat_input">Number of subcondition repeats:</label>
+      <input type="text" class="form-control" id="repeat_input" placeholder="4" style="text-align: center">
+    </div>
 
     <p>
     <p>
 
-    <div class="btn-group">
+    <div class="btn-group" style="margin-top: 20px">
 
       <button class="btn btn-info btn-lg dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="width: 250px">
-        Color
+        Condition
       </button>
 
       <div class="dropdown-menu" aria-labelledby="dropdownMenu2" style="width: 250px">
@@ -78,7 +88,8 @@
 
     </div>
     <p>
-    <p>  
+    <p>
+
     <input id = "start" type="button" onclick="" class="btn btn-success" style="display: none; width: 250px;" value = "S T A R T">
     </div>
 
@@ -99,13 +110,29 @@
         let url = "visualSearch.html?color=" + color;
 
         // Check if want the shortened version or not
-        let checkbox = document.getElementById("defaultCheck1");
+        let repeats = document.getElementById("repeat_input").value;
+        let subject_id = document.getElementById("subjectID_input").value;
+        let checked = document.getElementById("defaultCheck1").checked;
 
-        if (checkbox.checked){
-          location.href = url + "&short=true";
+        if (checked){
+          url += "&short=true";
         } else {
-          location.href = url + "&short=false";
+          url += "&short=false";
         }
+
+        if (repeats){
+          url += "&repeat=" + repeats;
+        } else {
+          url += "&repeat=4";
+        }
+
+        if (subject_id){
+          url += "&subjectID=" + encodeURI(subject_id);
+        } else {
+          url += "&subjectID=testSubject";
+        }
+
+        location.href = url;
       };
 
       // Make button visible
