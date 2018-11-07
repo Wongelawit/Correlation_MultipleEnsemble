@@ -152,7 +152,10 @@
         },
         stimuli: [subcondition["distractor"], subcondition["target"]],
         response_ends_trial: true,
-        data: {type: 'test'},
+        on_start: function(trial) {
+          trial.data = subcondition;
+          trial.data.type = "test";
+        },
         on_finish: function(data) { 
 
           if (data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode('z') &&
@@ -212,12 +215,17 @@
     jsPsych.init({
       timeline: timeline,
       on_finish: function() {
+
         jsPsych.data.displayData();
-        jsPsych.data.get().filter({type: 'test'})
-                          .ignore('time_elapsed')
-                          .ignore('internal_node_id')
-                          .ignore('trial_type')
-                          .localSave('csv','test.csv');
+
+        let trial_data = jsPsych.data.get()
+                                .filter({type: 'test'})
+                                .ignore('time_elapsed')
+                                .ignore('internal_node_id')
+                                .ignore('trial_type')
+                                .ignore('stimulus');
+
+        trial_data.localSave('csv','visualSearch.csv');
       }
     });
 
