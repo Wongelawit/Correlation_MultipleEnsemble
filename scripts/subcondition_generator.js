@@ -47,13 +47,15 @@ function get_subcondition_set(color, dimension){
 
 	// Get target path
 	let target_path = construct_path(color, dimension, null);
+	let target_name = construct_name(color, dimension, null);
 	
 	// Get opposite color w/ same dimension
 	let opposite_path = get_opposite_target(color, dimension);
+	let opposite_name = construct_name(OPPOSITE_COLORS[color], dimension, null);
 
 	// Push for each set size
 	for (let size of SET_SIZES){
-		subconditions = subconditions.concat(construct_subcondition(target_path, opposite_path, size));
+		subconditions = subconditions.concat(construct_subcondition(target_path, target_name, opposite_path, opposite_name, size));
 	}
 
 	// Push all other targets
@@ -61,7 +63,8 @@ function get_subcondition_set(color, dimension){
 		for (let dimension of DIMENSIONS){
 			for (let distance of DISTANCES){
 				let distractor_path = construct_path(color, dimension, distance);
-				subconditions = subconditions.concat(construct_subcondition(target_path, distractor_path, size));
+				let distractor_name = construct_name(color, dimension, distance);
+				subconditions = subconditions.concat(construct_subcondition(target_path, target_name, distractor_path, distractor_name, size));
 			}
 		}
 	}	
@@ -87,14 +90,16 @@ function get_opposite_target(color, dimension){
  * distractor size and whether target is present/not present.
  *	
  * @ param target 			{string} Path to target
+ * @ param target_name 		{string} Name of target color
  * @ param distractor 		{string} Path to distractor
+ * @ param distractor_name  {string} Name of distractor color
  * @ param size 			{int}	 Size of set
  *
  * @ return 				{array}  containing 2 assoc arrays, one for target present, one for target false
  */
-function construct_subcondition(target, distractor, size){
-	return [ {"target": target, "distractor": distractor, "size": size, "target_present": true},
-			 {"target": target, "distractor": distractor, "size": size, "target_present": false}];
+function construct_subcondition(target, target_name, distractor, distractor_name, size){
+	return [ {"target_path": target, "target_name": target_name, "distractor_path": distractor, "distractor_name": distractor_name, "size": size, "target_present": true},
+			 {"target_path": target, "target_name": target_name, "distractor_path": distractor, "distractor_name": distractor_name, "size": size, "target_present": false}];
 }
 
 /* Constructs path to the svg.
@@ -114,4 +119,23 @@ function construct_path(color, dimension, distance){
 	}
 
 	return path + ".svg";
+}
+
+/* Constructs name of the color.
+ *	
+ * @ param color 			{string} "BLUE", "GREEN", "RED", "YELLOW"
+ * @ param dimension 		{string} "LUM", "CHR", "HUE"
+ * @ param distance			{string} "-2", "-1", "+1", "+2"
+ *
+ * @ return 				{string} Name of the color
+ */
+function construct_name(color, dimension, distance){
+
+	let name = color + "_" + dimension;
+
+	if (distance){
+		return name + "_" + distance;
+	}
+	
+	return name;
 }

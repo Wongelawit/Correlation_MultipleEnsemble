@@ -132,6 +132,8 @@
       shuffled_subconditions = shuffled_subconditions.slice(0, 5);
     }
 
+    let count = 1;
+
     for (let subcondition of shuffled_subconditions){
 
       stimuli = {
@@ -150,11 +152,13 @@
           }
 
         },
-        stimuli: [subcondition["distractor"], subcondition["target"]],
+        stimuli: [subcondition["distractor_path"], subcondition["target_path"]],
         response_ends_trial: true,
         on_start: function(trial) {
           trial.data = subcondition;
           trial.data.type = "test";
+          trial.data.trial = count;
+          count++;
         },
         on_finish: function(data) { 
 
@@ -174,7 +178,7 @@
           }  
 
           console.log("RESPONSE: " + data.correct);
-        } 
+        }
       }
 
       timeline.push(fixation);
@@ -223,7 +227,11 @@
                                 .ignore('time_elapsed')
                                 .ignore('internal_node_id')
                                 .ignore('trial_type')
-                                .ignore('stimulus');
+                                .ignore('trial_index')
+                                .ignore('stimulus')
+                                .ignore('target_path')
+                                .ignore('distractor_path')
+                                .ignore('type');
 
         trial_data.localSave('csv','visualSearch.csv');
       }
