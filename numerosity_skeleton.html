@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Numerosity Task!</title>
+    <script src="jspsych-6.0.5/jspsych.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-ratio-ensembles-grid.js"></script>
+    <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+    <script type="text/javascript" src="scripts/util.js" ></script> 
+
+    <style>
+
+    img{
+      z-index: -1;
+      position: relative;
+      width: auto;
+      display: block;
+    }
+
+    .grid-container {
+      display: grid;
+      padding: 10px;
+    }
+
+    .grid-item {
+      width: 100%;
+      height: 100%;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      margin-left: 1px;
+      margin-right: 1px;
+    }
+
+    </style>
+  </head>
+  <body></body>
+  <script>
+
+    /* create timeline */
+    var timeline = [];
+
+    /* define welcome message trial */
+    var welcome = {
+      type: "html-keyboard-response",
+      stimulus: "Welcome to the experiment. Press any key to begin."
+    };
+    timeline.push(welcome);
+
+    /* define instructions trial */
+    var instructions = {
+      type: "html-keyboard-response",
+      stimulus: "<p>You will fixate on the cross displayed in the centre " +
+          "of the screen.</p><p> Keep your attention there and watch for a display of " +
+          "different colored squares to appear.</p><p> Please press the 'z' key if you believe " +
+          "there are more darker squares,</p><p> and press the 'm' key if you believe there are more " +
+          "lighter squares in the display.</p>" +
+          "<p>Press any key to begin.</p>",
+      post_trial_gap: 1000
+    };
+    timeline.push(instructions);
+	
+	/* 	*/
+	let bucket0 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket1 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket2 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket3 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket4 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket5 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket6 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket7 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket8 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket9 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket10 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket11 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	let bucket12 = [-2,-1.5,-1.2,-1.14,-1.12,1.12,1.14,1.2,1.5,2];
+	    
+	function getRandomFromBucket(bucket) {
+		var randomIndex = Math.floor(Math.random()*bucket.length);
+		return bucket.splice(randomIndex, 1)[0];
+	}
+
+    /* test trials */
+    var test_stimuli = [
+      { stimulus: ["stimuli/blue/BLUE_CHR.png","stimuli/yellow/YELLOW_CHR.png"], ratio: (function() { return getRandomFromBucket(bucket0); }), data: {test_part: 'control', lighter_colour: 'distractor'} },
+      { stimulus: ["stimuli/blue/BLUE_CHR.png","stimuli/blue/BLUE_CHR+1.png"], ratio: (function() { return getRandomFromBucket(bucket1); }), data: {test_part: 'trial', lighter_colour: 'distractor'} },
+      { stimulus: ["stimuli/blue/BLUE_CHR.png","stimuli/blue/BLUE_CHR+2.png"], ratio: (function() { return getRandomFromBucket(bucket2); }), data: {test_part: 'trial', lighter_colour: 'distractor'} },
+      { stimulus: ["stimuli/blue/BLUE_CHR.png","stimuli/blue/BLUE_CHR-1.png"], ratio: (function() { return getRandomFromBucket(bucket3); }), data: {test_part: 'trial', lighter_colour: 'target'} },
+      { stimulus: ["stimuli/blue/BLUE_CHR.png","stimuli/blue/BLUE_CHR-2.png"], ratio: (function() { return getRandomFromBucket(bucket4); }), data: {test_part: 'trial', lighter_colour: 'target'} },
+      { stimulus: ["stimuli/blue/BLUE_HUE.png","stimuli/blue/BLUE_HUE+1.png"], ratio: (function() { return getRandomFromBucket(bucket5); }), data: {test_part: 'trial', lighter_colour: 'distractor'} },
+      { stimulus: ["stimuli/blue/BLUE_HUE.png","stimuli/blue/BLUE_HUE+2.png"], ratio: (function() { return getRandomFromBucket(bucket6); }), data: {test_part: 'trial', lighter_colour: 'distractor'} },
+      { stimulus: ["stimuli/blue/BLUE_HUE.png","stimuli/blue/BLUE_HUE-1.png"], ratio: (function() { return getRandomFromBucket(bucket7); }), data: {test_part: 'trial', lighter_colour: 'target'} },
+      { stimulus: ["stimuli/blue/BLUE_HUE.png","stimuli/blue/BLUE_HUE-2.png"], ratio: (function() { return getRandomFromBucket(bucket8); }), data: {test_part: 'trial', lighter_colour: 'target'} },
+      { stimulus: ["stimuli/blue/BLUE_LUM.png","stimuli/blue/BLUE_LUM+1.png"], ratio: (function() { return getRandomFromBucket(bucket9); }), data: {test_part: 'trial', lighter_colour: 'distractor'} },
+      { stimulus: ["stimuli/blue/BLUE_LUM.png","stimuli/blue/BLUE_LUM+2.png"], ratio: (function() { return getRandomFromBucket(bucket10); }), data: {test_part: 'trial', lighter_colour: 'distractor'} },
+      { stimulus: ["stimuli/blue/BLUE_LUM.png","stimuli/blue/BLUE_LUM-1.png"], ratio: (function() { return getRandomFromBucket(bucket11); }), data: {test_part: 'trial', lighter_colour: 'target'} },
+      { stimulus: ["stimuli/blue/BLUE_LUM.png","stimuli/blue/BLUE_LUM-2.png"], ratio: (function() { return getRandomFromBucket(bucket12); }), data: {test_part: 'trial', lighter_colour: 'target'} }
+    ];
+	
+	var fixation = {
+      type: 'html-keyboard-response',
+      stimulus: '<div style="font-size:60px;">+</div>',
+      choices: jsPsych.NO_KEYS,
+      trial_duration: 2000,
+	  data: {test_part: 'fixation'}
+    }
+	
+	var test = {
+	    type: 'ratio-ensembles-grid',
+        trial_duration: 1000,
+        grid_size: [50, 50],
+		population_ratio: jsPsych.timelineVariable('ratio'),
+		stimuli: jsPsych.timelineVariable('stimulus'),
+		choices: jsPsych.NO_KEYS,
+		response_ends_trial: false,
+		mask: false,
+		data: jsPsych.timelineVariable('data'),
+ 		on_finish: function(data) {
+			if (data.lighter_colour == 'distractor' && (data.ratio < 0)) {
+				data.correct_key = 77; } else {
+			if (data.lighter_colour == 'distractor' && (data.ratio > 0)) {
+				data.correct_key = 90; } else {
+			if (data.ratio < 0) {
+				data.correct_key = 90; } else { data.correct_key = 77; }
+				}
+			}
+		}
+	}
+	
+	var mask = {
+	    type: 'ratio-ensembles-grid',
+        trial_duration: null,
+        grid_size: [50, 50],
+		population_ratio: 2,
+		stimuli: ["stimuli/black.png","stimuli/white.png"],
+		choices: ['z','m'],
+		mask: true,
+		prev_trial: function() {
+			var correct_k = jsPsych.data.get().last(1).values()[0].correct_key;
+			return correct_k;
+		 },
+		response_ends_trial: true,
+		on_finish: function(data) {
+			data.correct = (data.correct_key == data.key_press);
+		}
+	}
+	
+	var feedback = {
+		type: 'html-keyboard-response',
+		stimulus: function() {
+		var correct = jsPsych.data.get().last(1).values()[0].correct;
+		if(correct){
+		 return "<p>Correct!</p>";
+		 } else {
+		  return "<p>Wrong.</p>"
+		 }
+		}
+	}
+	
+    var test_procedure = {
+      timeline: [fixation, test, mask, feedback],
+      timeline_variables: test_stimuli,
+      randomize_order: true,
+      repetitions: 20
+    }
+    timeline.push(test_procedure);
+	
+	var endtask = {
+	  type: 'html-keyboard-response',
+      stimulus: "All done!",
+      choices: jsPsych.NO_KEYS,
+	  trial_duration: 1000,
+	  };
+	timeline.push(endtask);
+
+    /* start the experiment */
+    jsPsych.init({
+      timeline: timeline,
+	  on_finish: function() {
+	    jsPsych.data.displayData();
+	  }
+    });
+  </script>
+  </html>
