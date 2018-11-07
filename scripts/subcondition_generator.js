@@ -5,6 +5,75 @@ const OPPOSITE_COLORS = {"BLUE":"YELLOW", "YELLOW":"BLUE", "GREEN":"RED", "RED":
 const DISTANCES = ["-2", "-1", "+1", "+2"];
 const SET_SIZES = [8, 16, 32];
 
+// BLUES
+{"BLUE_LUM-2" : #005a95,
+"BLUE_LUM-1" : #006ca9,
+"BLUE_LUM" : #007ebc, // TARGET
+"BLUE_LUM+1" : #2391d1,
+"BLUE_LUM+2" : #43a4e6,
+
+"BLUE_CHR-2" : #6a7887e,
+"BLUE_CHR-1" : #4d7ba1,
+"BLUE_CHR" : #007ebc, // TARGET
+"BLUE_CHR+1" : #0081d9,
+"BLUE_CHR+2" : #0085f7,
+
+"BLUE_HUE-2" : #008897,
+"BLUE_HUE-1" : #0085ad,
+"BLUE_HUE" : #007ebc, // TARGET
+"BLUE_HUE+1" : #5575bc,
+"BLUE_HUE+2" : #816ab1,
+
+// GREENS
+"GREEN_LUM-2" : #006228,
+"GREEN_LUM-1" : #007438,
+"GREEN_LUM" : #20874a, // TARGET
+"GREEN_LUM+1" : #399b5c,
+"GREEN_LUM+2" : #4eaf6e,
+
+"GREEN_CHR-2" : #5e7e66,
+"GREEN_CHR-1" : #468358,
+"GREEN_CHR" : #20874a,
+"GREEN_CHR+1" : #008d33,
+"GREEN_CHR+2" : ,
+
+"GREEN_HUE-2" : hex value,
+"GREEN_HUE-1" : hex value,
+"GREEN_HUE+1" : hex value,
+"GREEN_HUE+2" : hex value,
+
+//REDS
+"RED_LUM-2" : hex value,
+"RED_LUM-1" : hex value,
+"RED_LUM+1" : hex value,
+"RED_LUM+2" : hex value,
+
+"RED_CHR-2" : hex value,
+"RED_CHR-1" : hex value,
+"RED_CHR+1" : hex value,
+"RED_CHR+2" : hex value,
+
+"RED_HUE-2" : hex value,
+"RED_HUE-1" : hex value,
+"RED_HUE+1" : hex value,
+"RED_HUE+2" : hex value,
+
+//YELLOWS
+"YELLOW_LUM-2" : hex value,
+"YELLOW_LUM-1" : hex value,
+"YELLOW_LUM+1" : hex value,
+"YELLOW_LUM+2" : hex value,
+
+"YELLOW_CHR-2" : hex value,
+"YELLOW_CHR-1" : hex value,
+"YELLOW_CHR+1" : hex value,
+"YELLOW_CHR+2" : hex value,
+
+"YELLOW_HUE-2" : hex value,
+"YELLOW_HUE-1" : hex value,
+"YELLOW_HUE+1" : hex value,
+"YELLOW_HUE+2" : hex value};
+
 /* Returns array of all subconditions for a given color. 
  * Length 234 in total (78 x 3).
  *	
