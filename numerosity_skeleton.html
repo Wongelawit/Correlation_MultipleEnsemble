@@ -108,8 +108,8 @@
 	
 	var test = {
 	    type: 'ratio-ensembles-grid',
-        trial_duration: 1000,
-        grid_size: [50, 50],
+        trial_duration: 2000,
+        grid_size: [75, 75],
 		population_ratio: jsPsych.timelineVariable('ratio'),
 		stimuli: jsPsych.timelineVariable('stimulus'),
 		choices: jsPsych.NO_KEYS,
@@ -131,7 +131,7 @@
 	var mask = {
 	    type: 'ratio-ensembles-grid',
         trial_duration: null,
-        grid_size: [50, 50],
+        grid_size: [75, 75],
 		population_ratio: 2,
 		stimuli: ["stimuli/black.png","stimuli/white.png"],
 		choices: ['z','m'],
