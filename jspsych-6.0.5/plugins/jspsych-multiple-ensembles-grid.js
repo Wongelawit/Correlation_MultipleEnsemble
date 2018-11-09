@@ -23,13 +23,6 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
         default: undefined,
         description: 'An array that defines the stimuli.'
       },
-      grid_size: {
-        type: jsPsych.plugins.parameterType.INT,
-        pretty_name: 'Grid size',
-        array: true,
-        default: [10,10],
-        description: 'Array specifying the row and columns of the grid.'
-      },
       distribution_sizes: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Distractor number',
@@ -73,7 +66,7 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    var new_html = plugin.generate_stimulus(trial.stimuli, trial.grid_size, trial.distribution_sizes);
+    var new_html = plugin.generate_stimulus(trial.stimuli, trial.distribution_sizes);
 
     // add prompt
     if(trial.prompt !== null){
@@ -158,10 +151,9 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
 
   };
 
-  plugin.generate_stimulus = function(stimuli, grid_size, distribution_size) {
+  plugin.generate_stimulus = function(stimuli, distribution_size) {
 
-    let rows = grid_size[0];
-    let columns = grid_size[1];
+    const GRID_DIM = 36;
 
     let distractor = stimuli[0];
     let target = stimuli[1];
@@ -172,22 +164,29 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
     // Extract img dimensions so can force empty boxes to be of same height/width
     let img = new Image();
     img.src = distractor;
-    let item_width = img.width;
-    let item_height = img.height;
+    let img_width = img.width;
+    let img_height = img.height;
 
-    let distractor_html = '<div class="grid-item"><img src = "' + distractor + '"</img></div>';
-    let target_html     = '<div class="grid-item""><img src = "' + target + '"</img></div>';
-    let empty_item_html = `<div class="grid-item" style="height: ${item_height}px; width: ${item_width}px""></div>`;
+    let axes_size = get_axes_size();
+    let item_size = axes_size/GRID_DIM;
+
+    console.log("item size (px): " + item_size);
+    console.log("axes size (px): " + axes_size);
+    console.log("axes size (cm): " + axes_size/PIXELS_PER_CM);
+
+    let distractor_html = `<div class="grid-item" style = "height: ${item_size}px; width: ${item_size}px" ><img src = "` + distractor + '"></img></div>';
+    let target_html     = `<div class="grid-item" style = "height: ${item_size}px; width: ${item_size}px" ><img src = "` + target + '"></img></div>';
+    let empty_item_html = `<div class="grid-item" style = "height: ${item_size}px; width: ${item_size}px" ></div>`;
 
     let html = 
-    `<div class='grid-container' style = 'grid-template-columns: repeat(${columns}, minMax(10px, 1fr));` +
-    ` grid-template-rows: repeat("${rows}"}, minMax(10px, 1fr));'>`;
+    `<div class='grid-container' style = 'grid-template-columns: repeat(${GRID_DIM}, 1fr);` +
+    ` grid-template-rows: repeat(${GRID_DIM}, 1fr);'>`;
 
-    let target_coordinates = generate_coordinates(rows, columns, target_number, null);
-    let distractor_coordinates = generate_coordinates(rows, columns, distractor_number, target_coordinates);
+    let target_coordinates = generate_coordinates(GRID_DIM, GRID_DIM, target_number, null);
+    let distractor_coordinates = generate_coordinates(GRID_DIM, GRID_DIM, distractor_number, target_coordinates);
 
-    for (let r = 0; r < rows; r++){
-      for (let c = 0; c < columns; c++){
+    for (let r = 0; r < GRID_DIM; r++){
+      for (let c = 0; c < GRID_DIM; c++){
 
         let curr_coord = JSON.stringify([r, c]);
 
@@ -260,6 +259,68 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
    */ 
   function get_random_int(max) {
       return Math.floor(Math.random() * Math.floor(max));
+  }
+
+  /**
+   * Computes the length of the axes in pixels.
+   * Used formula:
+   * visual angle = 2 * atan( (object size / 2) / object distance)
+   *
+   * @return length of axes in pixels 
+   */ 
+  function get_axes_size(){
+
+    const VISUAL_ANGLE = 8.3; //6.3 from specs
+    const OBJECT_DISTANCE_CM = 45;
+
+    let graph_size_cm = 2 * OBJECT_DISTANCE_CM * get_tan(VISUAL_ANGLE/2);
+
+    let graph_size_pix = graph_size_cm * PIXELS_PER_CM;
+
+    return graph_size_pix;
+  }
+
+  function get_point_size(){
+
+    const VISUAL_ANGLE = 0.35;
+    const OBJECT_DISTANCE_CM = 45;
+
+    let graph_size_cm = 2 * OBJECT_DISTANCE_CM * get_tan(VISUAL_ANGLE/2);
+
+    let graph_size_pix = graph_size_cm * PIXELS_PER_CM;
+
+    return graph_size_pix;
+  }
+
+  // function get_graph_size_by_ratio(){
+
+  //   const GRAPH_WIDTH_PIX = 5.5 * PIXELS_PER_CM;
+  //   const MONITOR_WIDTH_PIX = 28.5 * PIXELS_PER_CM;
+
+  //   const THIS_MONITOR_WIDTH_PIX = screen.width;
+
+  //   let graph_size = (GRAPH_WIDTH_PIX/MONITOR_WIDTH_PIX) * THIS_MONITOR_WIDTH_PIX;
+
+  //   return graph_size;
+  // }
+
+  // function get_graph(){
+  //   const MONITOR_HEIGHT_CM = screen.height / PIXELS_PER_CM;
+  //   const DISTANCE_CM = 45;
+  //   const MONITOR_WIDTH_PIX = screen.width;
+  //   const size_in_deg = 8;
+
+  //   let deg_per_px = (Math.atan2(0.5*MONITOR_HEIGHT_CM, DISTANCE_CM)*(180/Math.PI)) / (0.5*MONITOR_WIDTH_PIX);
+
+  //   let size_in_px = size_in_deg / deg_per_px;
+
+  //   return size_in_px;
+  // }
+
+  function get_tan(degrees) {
+    let result_in_radians = Math.tan(degrees * Math.PI/180);
+
+    return result_in_radians;
   }
 
   return plugin;
