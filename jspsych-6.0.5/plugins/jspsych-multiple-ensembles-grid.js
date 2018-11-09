@@ -23,13 +23,6 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
         default: undefined,
         description: 'An array that defines the stimuli.'
       },
-      grid_size: {
-        type: jsPsych.plugins.parameterType.INT,
-        pretty_name: 'Grid size',
-        array: true,
-        default: [10,10],
-        description: 'Array specifying the row and columns of the grid.'
-      },
       distribution_sizes: {
         type: jsPsych.plugins.parameterType.INT,
         pretty_name: 'Distractor number',
@@ -73,7 +66,7 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    var new_html = plugin.generate_stimulus(trial.stimuli, trial.grid_size, trial.distribution_sizes);
+    var new_html = plugin.generate_stimulus(trial.stimuli, trial.distribution_sizes);
 
     // add prompt
     if(trial.prompt !== null){
@@ -158,10 +151,10 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
 
   };
 
-  plugin.generate_stimulus = function(stimuli, grid_size, distribution_size) {
+  plugin.generate_stimulus = function(stimuli, distribution_size) {
 
-    let rows = grid_size[0];
-    let columns = grid_size[1];
+    let rows = 36;
+    let columns = 36;
 
     let distractor = stimuli[0];
     let target = stimuli[1];

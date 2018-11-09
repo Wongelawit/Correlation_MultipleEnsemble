@@ -44,46 +44,18 @@
 
     let timeline = [];
 
-    let distractor_path = "stimuli/blue.svg";
-    let target_path = "stimuli/red.svg";
+    let distractor_path = "stimuli/BLUE/BLUE_CHR.svg";
+    let target_path = "stimuli/RED/RED_CHR.svg";
 
     let distractor_size = 20;
     let target_size = 15;
-
-    let example1 = {
-      type: "html-keyboard-response",
-      stimulus: "Example trial where stimuli <b>WILL WAIT until trial_duration has passed</b> (regardless of keyboard input)."
-    };
-
-    timeline.push(example1);
-
-    // Does not take keyboard input, will wait for trial_duration
-    let stimuli_no_keyboard_input = {
-      type: 'multiple-ensembles-grid',
-      choices: ['z', 'm'],
-      trial_duration: 2000, // <----
-      grid_size: [72, 72],
-      distribution_sizes: [distractor_size, target_size],
-      stimuli: [distractor_path, target_path],
-      response_ends_trial: false // <----
-    }
-
-    timeline.push(stimuli_no_keyboard_input);
-
-    let example2 = {
-      type: "html-keyboard-response",
-      stimulus: "Example trial where stimuli will move onto next trial <b>IF THERE IS keyboard input.</b> <br> " + 
-                "Will wait indefinitely until there is input."
-    };
-
-    timeline.push(example2);
 
     // Does TAKE keyboard input, will move onto next trial upon input
     let stimuli_with_keyboard_input = {
       type: 'multiple-ensembles-grid',
       choices: ['z', 'm'],
       trial_duration: null, // <----
-      grid_size: [72, 72],
+      grid_size: [36, 36],
       distribution_sizes: [distractor_size, target_size],
       stimuli: [distractor_path, target_path],
       response_ends_trial: true // <----
