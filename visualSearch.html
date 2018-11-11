@@ -42,7 +42,6 @@
 
     let set = get_subcondition_set(color);
     let subconditions = [];
-    debugger;
 
     for (let i = 0; i < num_repeats; i++){
       subconditions = subconditions.concat(set);
@@ -64,7 +63,6 @@
     // ---------------------------------------------------------------------
     // INSTRUCTIONS
     let targetname = subconditions[0]["target_path"];
-    debugger;
     var height = window.innerheight/4;
     var width = height/2;
 
@@ -74,9 +72,9 @@
               "<p>You will fixate on the cross displayed in the center of the screen before each trial." + 
               "<p>Keep your attention there and watch for a display of different colored squares to appear." + 
               "<p>Please press the <b>“Z” key</b> if you see the target colored square, please press the <b>“M” key</b> if you believe it was absent from the trial." + 
-              "<div style='height: 290px; width: 700px; display: block;'>"+
-              `<img style="height:50%"`+  "src='"+`${targetname}`+ "'></img>" +
-              "</div>" + "<div> <p><br><p>Press any key to continue.</p> </div>" + 
+              "<div style='height: 100px; display: block;'>"+
+              `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
+              "</div>" + "<div> <p>Press any key to continue.</div>" + 
               "</div>"          
     };
     timeline.push(instructions);
