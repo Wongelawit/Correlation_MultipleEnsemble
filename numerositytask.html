@@ -72,7 +72,7 @@
     // ---------------------------------------------------------------------
     // INSTRUCTIONS
     let targetname1 = subconditions[0]["target_path"];
-    console.log(subconditions.size());
+    //console.log(subconditions.size());
     var height = window.innerheight/4;
     var width = height/2;
 
@@ -158,7 +158,7 @@
 
     let count = 1;
 
-    for (let subcondition of subconditions){
+    for (let subcondition of shuffled_subconditions){
 
       let sizes = [subcondition["target_size"], subcondition["distractor_size"]];
       let paths = [subcondition["target_path"], subcondition["distractor_path"]].sort( () => Math.random() - 0.5 );
@@ -273,7 +273,7 @@
                                 .ignore('distractor_path')
                                 .ignore('type');
 
-        let string = subject_id + "_visualSearch.csv";
+        let string = subject_id + "_numerosityTask.csv";
         trial_data.localSave('csv', string);
       }
     });
