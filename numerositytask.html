@@ -72,6 +72,7 @@
     // ---------------------------------------------------------------------
     // INSTRUCTIONS
     let targetname1 = subconditions[0]["target_path"];
+    console.log(subconditions.size());
     var height = window.innerheight/4;
     var width = height/2;
 
@@ -146,12 +147,12 @@
     // STIMULI
 
     // Randomize order
-    //let shuffled_subconditions = subconditions.sort( () => Math.random() - 0.5);
+    let shuffled_subconditions = subconditions.sort( () => Math.random() - 0.5);
 
     // If want the shortened version, just slice out 5
-    //if (is_short === "true"){
-    //  shuffled_subconditions = shuffled_subconditions.slice(0, 6);
-    //}
+    if (is_short === "true"){
+      shuffled_subconditions = shuffled_subconditions.slice(0, 6);
+    }
 
     console.log("REACHED 147");
 
