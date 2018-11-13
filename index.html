@@ -2,7 +2,7 @@
 <html>
   <head>
     <link rel="icon" href="img/VCL_favicon.png">
-    <title>Visual Search</title>
+    <title>Numerosity Task</title>
 
     <script src="jspsych-6.0.5/jspsych.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
@@ -44,7 +44,7 @@
 
   <body>
     <div id = "center">
-    <h1>Set Condition for <b>Visual Search</b></h1>
+    <h1>Set Condition for <b>Numerosity Task</b></h1>
 
     <span style="display: block; background-color: #d0d5db">
       <div id = "feedback"><p><h5>Select color from dropdown.</h5></p></div>
@@ -107,7 +107,7 @@
       // Set URL for start
       document.getElementById("start").onclick = function () {
 
-        let url = "visualSearch.html?color=" + color;
+        let url = "numerositytask.html?color=" + color;
 
         // Check if want the shortened version or not
         let repeats = document.getElementById("repeat_input").value;
