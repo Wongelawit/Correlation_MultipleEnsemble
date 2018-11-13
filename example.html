@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <title>Multiple Ensembles Grid Example</title>
+
+    <script src="jspsych-6.0.5/jspsych.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js"></script>
+    <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
+
+    <script type="text/javascript" src="scripts/util.js" ></script> 
+
+    <style>
+
+    img{
+      z-index: -1;
+      position: relative;
+      width: auto;
+      display: block;
+    }
+
+    .grid-container {
+      display: grid;
+      padding: 10px;
+    }
+
+    .grid-item {
+      width: 100%;
+      height: 100%;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      margin-left: 1px;
+      margin-right: 1px;
+    }
+
+    </style>
+
+  </head>
+  <body>
+  </body>
+  <script>
+
+    let timeline = [];
+
+    let distractor_path = "stimuli/blue/BLUE_LUM.svg";
+    let target_path = "stimuli/red/RED_LUM.svg";
+
+    let distractor_size = 20;
+    let target_size = 15;
+
+    // Does TAKE keyboard input, will move onto next trial upon input
+    let stimuli_with_keyboard_input = {
+      type: 'multiple-ensembles-grid',
+      choices: ['z', 'm'],
+      trial_duration: null, // <----
+      grid_size: [36, 36],
+      distribution_sizes: [distractor_size, target_size],
+      stimuli: [distractor_path, target_path],
+      response_ends_trial: true // <----
+    }
+
+    timeline.push(stimuli_with_keyboard_input);
+
+    jsPsych.init({
+      timeline: timeline,
+      on_finish: function() {
+        jsPsych.data.displayData();
+      }
+    });
+
+  </script>
+  </html>

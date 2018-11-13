@@ -1,0 +1,52 @@
+    img {
+      z-index: -1;
+      position: relative;
+      width: auto;
+      display: block;
+    }
+
+    body {
+      height: 100vh;
+      margin: 0;
+      position: relative;
+    }
+
+
+    .header {
+      margin-bottom: 20px;
+      padding: 10px;
+      background: #eaeff7;
+      -moz-border-radius: 10px;
+      -webkit-border-radius: 10px;
+      -o-border-radius: 10px;
+      -ms-border-radius: 10px;
+      border-radius: 10px;
+      text-align: center;
+      color: black;
+      font-size: 30px;
+    }
+
+    .box {
+      color: #000000;
+      height: auto;
+      left: 40%;
+      margin: -50px 0 0 -100px;
+      position: absolute;
+      text-align: center;
+      top: 30%;
+      width: auto;
+    }
+
+    .grid-container {
+      display: grid;
+      padding: 10px;
+    }
+
+    .grid-item {
+      width: 100%;
+      height: 100%;
+      margin-top: 1px;
+      margin-bottom: 1px;
+      margin-left: 1px;
+      margin-right: 1px;
+    }
