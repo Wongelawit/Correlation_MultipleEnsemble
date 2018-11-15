@@ -224,6 +224,19 @@
     // timeline.push(procedure);
 
     // ---------------------------------------------------------------------
+    // DIFFICULTY RATING
+
+    let rating = {
+      type: 'html-keyboard-response',
+      stimulus: "<div align = 'center'> <font size = 20><p>Now, rate the difficulty of the</p><p>last task on a scale from 1 to 7. <p>" + "<br><br><p><b>Please press the number key that</p><p>corresponds with your choice.</b></p></font></div>",
+      choices: ['1', '2', '3', '4', '5','6','7'],
+      data: {type: 'test'},
+      on_finish: function(data) {
+        data.rating = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+      }
+    };
+    timeline.push(rating);
+    // ---------------------------------------------------------------------
     // INIT
 
     jsPsych.init({
