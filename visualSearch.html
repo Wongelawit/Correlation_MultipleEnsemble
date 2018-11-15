@@ -41,6 +41,7 @@
     let subject_id = params["subjectID"];
 
     let set = get_subcondition_set(color);
+    let color_paths = get_color_paths(color);
     let subconditions = [];
 
     for (let i = 0; i < num_repeats; i++){
@@ -196,33 +197,6 @@
       timeline.push(feedback);
     }
 
-    // The better way to do it, for some reason jsPsych.timelineVariable() not working
-
-    // var procedure = {
-    //     timeline: [
-    //         fixation,
-    //         {
-    //           type: 'multiple-ensembles-grid',
-    //           choices: ['z', 'm'],
-    //           trial_duration: null,
-    //           grid_size: [36, 36],
-    //           distribution_sizes: function(){
-    //             let size = jsPsych.timelineVariable('size')
-    //             return [size, 1]
-    //           },
-    //           stimuli: function(){
-    //             let distractor_path = jsPsych.timelineVariable('distractor');
-    //             let target_path = jsPsych.timelineVariable('target');
-    //             return [distractor_path, target_path];
-    //           },
-    //           response_ends_trial: true,
-    //           data: {type: 'test'}
-    //         }
-    //     ],
-    //     timeline_variables: subconditions
-    // }
-    // timeline.push(procedure);
-
     // ---------------------------------------------------------------------
     // TARGET ID INSTRUCTIONS
 
@@ -251,6 +225,7 @@
       }
     };
     timeline.push(rating);
+
     // ---------------------------------------------------------------------
     // INIT
 

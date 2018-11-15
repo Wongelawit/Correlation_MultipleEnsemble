@@ -130,6 +130,35 @@ function get_subcondition_set(color){
     return subconditions;
 }
 
+/* Constructs all possible color paths for a given color.
+ * Should give 13 (1 opposite + 12 on same color gradient)
+ *  
+ * @ param color            {string} "BLUE", "GREEN", "RED", "YELLOW"
+ *
+ * @ return                 [string, string...]  array containing paths to each color
+ */
+function get_color_paths(color) {
+
+    let color_paths = [];
+
+    if (!COLORS.includes(color)){
+        throw Error(color + " is not supported.");
+    } 
+
+    // Get opposite color w/ same dimension
+    color_paths.push(get_opposite_target(color, "CHR")); // Force CHR, all target hex same anyway
+
+    // Get the other colors
+    for (let distance of DISTANCES){
+      for (let dimension of DIMENSIONS) {
+        let distractor_path = construct_path(color, dimension, distance);
+        color_paths.push(distractor_path);
+      }
+    }  
+
+    return color_paths;
+}
+
 /* Constructs path of opposite color but same dimension.
  *  
  * @ param color            {string} "BLUE", "GREEN", "RED", "YELLOW"
