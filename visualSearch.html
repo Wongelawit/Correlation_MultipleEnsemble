@@ -8,6 +8,7 @@
     <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-vizsearch-rating.js"></script>
     <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
     <script src="scripts/subcondition_generator.js"></script> 
@@ -206,18 +207,57 @@
               "<p>Now, you will be shown all of the colours you have interacted with thus far. " + 
               "From the colours shown,<br>" +
               "<strong>choose the colour that you have been searching for in this task.</strong></p>" +
-              "<p>Please press the key it is associated with to indicate your choice.</p>" +
+              "<p>Please press the <b>letter key</b> it is associated with to indicate your choice.</p>" +
               "</div>"          
     };
     timeline.push(instructions2);
+
+    // ---------------------------------------------------------------------
+    // RATING WHEEL
+
+    const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
+    const PATHS = get_color_paths("BLUE").sort( () => Math.random() - 0.5);
+    let mapping = {};
+
+    // Map the letters to the paths
+    for (let letter of LETTERS){
+      mapping[letter] = PATHS.pop();
+    }
+
+    let rating_wheel = {
+      type: 'multiple-ensembles-vizsearch-rating',
+      letter_mapping: mapping,
+      choices: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"],
+      trial_duration: null,
+      response_ends_trial: true,
+      data: {type: 'test'},
+      on_finish: function(data) { 
+
+          let letter = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+          letter = letter.toUpperCase();
+
+          let path = mapping[letter];
+          let color = path.split("/")[2];
+          color = color.split(".")[0];
+
+          data.rating_color = color;
+
+          console.log("LETTER: " + letter);
+          console.log("PATH: " + path);
+          console.log("COLOR: " + color);
+        }
+    };
+
+    timeline.push(rating_wheel);
 
     // ---------------------------------------------------------------------
     // CONFIDENCE RATING
 
     let rating = {
       type: 'html-keyboard-response',
-      stimulus: "<div align = 'center'> <font size = 20><p>Rate how confident you are in your choice</p><p>on a scale of 1 to 7, with 7 being the most confident. <p>" + "<br><br><p><b>Please press the number key that</p><p>corresponds to your choice:</b></p>"+
-      "<br><p>1, 2, 3, 4, 5, 6, 7</p></font></div>",
+      stimulus: "<div align = 'center'> <p>Rate how confident you are in your choice</p><p>on a scale of 1 to 7, with 7 being the most confident. </p>" + "<p><b>Please press the number key that corresponds to your choice:</b></p>"+
+      "<br><p><font size = 15><i>Least confident</i> <---1--2--3--4--5--6--7---> <i>Most confident</i></font></p></div>",
       choices: ['1', '2', '3', '4', '5','6','7'],
       data: {type: 'test'},
       on_finish: function(data) {

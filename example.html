@@ -57,7 +57,8 @@
     let rating_wheel = {
       type: 'multiple-ensembles-vizsearch-rating',
       letter_mapping: mapping,
-      choices: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"],
+      choices: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", 
+                "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"],
       trial_duration: null,
       response_ends_trial: true,
       on_finish: function(data) { 
@@ -68,6 +69,8 @@
           let path = mapping[letter];
           let color = path.split("/")[2];
           color = color.split(".")[0];
+
+          data.rating_color = color;
 
           console.log("LETTER: " + letter);
           console.log("PATH: " + path);

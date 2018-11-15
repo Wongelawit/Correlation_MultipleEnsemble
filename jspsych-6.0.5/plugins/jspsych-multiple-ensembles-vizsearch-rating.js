@@ -68,7 +68,8 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
 
     // draw
     display_element.innerHTML = new_html;
-
+    
+      
     // store response
     var response = {
       rt: null,
@@ -146,12 +147,12 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
 
   plugin.generate_stimulus = function(letter_mapping) {
 
-    let rows = 7;
-    let columns = 7;
-    let item_size = 40;
+    const ROWS = 7;
+    const COLUMNS = 7;
+    const ITEM_SIZE = 40;
 
     const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
-    const CIRCLE_COORDINATES = [[0,2], [0,4], [1,5], [2,6], [3,6], [4,5], [5,4], [6,3], [5,2], [4,1], [3,0], [2,0], [1,1]];
+    const CIRCLE_COORDINATES = [[0,2], [1,1], [2,0], [3,0], [4,1], [5,2], [6,3], [5,4], [4,5], [3,6], [2,6], [1,5], [0,4]];
     let JSONFIED_CIRCLE_COORDINATES = [];
     let LETTER_TO_COORDINATE_MAPPING = {};
 
@@ -162,14 +163,14 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
       JSONFIED_CIRCLE_COORDINATES.push(coord);
     }
 
-    let empty_item_html = `<div class="grid-item" style="margin: 10px; height: ${item_size}px; width: ${item_size}px""></div>`;
+    let empty_item_html = `<div class="grid-item" style="margin: 10px; height: ${ITEM_SIZE}px; width: ${ITEM_SIZE}px""></div>`;
 
     let html = 
-    `<div class='grid-container' style = 'grid-template-columns: repeat(${columns}, minMax(10px, 1fr));` +
-    ` grid-template-rows: repeat("${rows}"}, minMax(10px, 1fr));'>`;
+    `<div class='grid-container' style = 'grid-template-columns: repeat(${COLUMNS}, minMax(10px, 1fr));` +
+    ` grid-template-rows: repeat("${ROWS}"}, minMax(10px, 1fr));'>`;
 
-    for (let r = 0; r < rows; r++){
-      for (let c = 0; c < columns; c++){
+    for (let r = 0; r < ROWS; r++){
+      for (let c = 0; c < COLUMNS; c++){
 
         let curr_coord = JSON.stringify([r, c]);
 
@@ -177,7 +178,7 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
           let letter = get_key_by_value(LETTER_TO_COORDINATE_MAPPING, curr_coord);
           let path = letter_mapping[letter];
 
-          html += get_target_html(item_size, letter, path);
+          html += get_target_html(ITEM_SIZE, letter, path);
         } else {
           html += empty_item_html;
         }
