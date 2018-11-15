@@ -8,9 +8,10 @@
     <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-vizsearch-rating.js"></script>
     <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
-    <script type="text/javascript" src="scripts/util.js" ></script> 
+    <script src="scripts/subcondition_generator.js"></script> 
 
     <style>
 
@@ -50,18 +51,15 @@
     let distractor_size = 20;
     let target_size = 15;
 
-    // Does TAKE keyboard input, will move onto next trial upon input
-    let stimuli_with_keyboard_input = {
-      type: 'multiple-ensembles-grid',
-      choices: ['z', 'm'],
-      trial_duration: null, // <----
-      grid_size: [36, 36],
-      distribution_sizes: [distractor_size, target_size],
-      stimuli: [distractor_path, target_path],
-      response_ends_trial: true // <----
-    }
+    let rating_wheel = {
+      type: 'multiple-ensembles-vizsearch-rating',
+      color_paths: get_color_paths("BLUE"),
+      choices: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+      trial_duration: null,
+      response_ends_trial: true
+    };
 
-    timeline.push(stimuli_with_keyboard_input);
+    timeline.push(rating_wheel);
 
     jsPsych.init({
       timeline: timeline,
