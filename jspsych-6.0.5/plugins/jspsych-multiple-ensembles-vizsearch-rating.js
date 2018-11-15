@@ -16,12 +16,12 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
     name: 'multiple-ensembles-vizsearch-rating',
     description: '',
     parameters: {
-      color_paths: {
+      letter_mapping: {
         type: jsPsych.plugins.parameterType.STRING,
         array: true,
-        pretty_name: 'Colors',
+        pretty_name: 'Letter Mapping',
         default: [],
-        description: 'The color paths of the targets.'
+        description: 'Array of {letter : color_path}.'
       },
       choices: {
         type: jsPsych.plugins.parameterType.KEYCODE,
@@ -59,7 +59,7 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
 
   plugin.trial = function(display_element, trial) {
 
-    var new_html = plugin.generate_stimulus(trial.color_paths);
+    var new_html = plugin.generate_stimulus(trial.letter_mapping);
 
     // add prompt
     if(trial.prompt !== null){
@@ -144,24 +144,24 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
 
   };
 
-  plugin.generate_stimulus = function(color_paths) {
+  plugin.generate_stimulus = function(letter_mapping) {
 
     let rows = 7;
     let columns = 7;
-
-    let circle_coordinates = [[0,2], [0,4], [1,5], [2,6], [3,6], [4,5], [5,4], [6,3], [5,2], [4,1], [3,0], [2,0], [1,1]];
-    let coordinates = [];
-
-    for (let coord of circle_coordinates) {
-      coordinates.push(JSON.stringify(coord));
-    }
-
-    let distractor = "stimuli/blue/BLUE_CHR.svg";
-    let target = "stimuli/red/RED_CHR.svg";
-
     let item_size = 40;
 
-    let target_html     = `<div class="grid-item""><img style="margin: 10px; height: ${item_size}px; width: ${item_size}px" src = "` + target + '"</img></div>';
+    const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
+    const CIRCLE_COORDINATES = [[0,2], [0,4], [1,5], [2,6], [3,6], [4,5], [5,4], [6,3], [5,2], [4,1], [3,0], [2,0], [1,1]];
+    let JSONFIED_CIRCLE_COORDINATES = [];
+    let LETTER_TO_COORDINATE_MAPPING = {};
+
+    for (let letter of LETTERS) {
+      let coord = JSON.stringify(CIRCLE_COORDINATES.pop());
+
+      LETTER_TO_COORDINATE_MAPPING[letter] = coord;
+      JSONFIED_CIRCLE_COORDINATES.push(coord);
+    }
+
     let empty_item_html = `<div class="grid-item" style="margin: 10px; height: ${item_size}px; width: ${item_size}px""></div>`;
 
     let html = 
@@ -173,8 +173,11 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
 
         let curr_coord = JSON.stringify([r, c]);
 
-        if (coordinates.includes(curr_coord)) {
-          html += target_html;
+        if (JSONFIED_CIRCLE_COORDINATES.includes(curr_coord)) {
+          let letter = get_key_by_value(LETTER_TO_COORDINATE_MAPPING, curr_coord);
+          let path = letter_mapping[letter];
+
+          html += get_target_html(item_size, letter, path);
         } else {
           html += empty_item_html;
         }
@@ -185,6 +188,14 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
     return html;
 
   };
+
+  function get_target_html (item_size, letter, target_path) {
+    return `<div class="grid-item"">`+ letter + `<img style="margin-bottom:10px; height: ${item_size}px; width: ${item_size}px" src = "` + target_path + '"</img></div>';
+  }
+
+  function get_key_by_value(object, value) {
+    return Object.keys(object).find(key => object[key] === value);
+  }
 
   return plugin;
 })();

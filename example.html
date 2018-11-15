@@ -45,18 +45,34 @@
 
     let timeline = [];
 
-    let distractor_path = "stimuli/blue/BLUE_LUM.svg";
-    let target_path = "stimuli/red/RED_LUM.svg";
+    const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
+    const PATHS = get_color_paths("BLUE").sort( () => Math.random() - 0.5);
+    let mapping = {};
 
-    let distractor_size = 20;
-    let target_size = 15;
+    // Map the letters to the paths
+    for (let letter of LETTERS){
+      mapping[letter] = PATHS.pop();
+    }
 
     let rating_wheel = {
       type: 'multiple-ensembles-vizsearch-rating',
-      color_paths: get_color_paths("BLUE"),
-      choices: ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"],
+      letter_mapping: mapping,
+      choices: ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"],
       trial_duration: null,
-      response_ends_trial: true
+      response_ends_trial: true,
+      on_finish: function(data) { 
+
+          let letter = jsPsych.pluginAPI.convertKeyCodeToKeyCharacter(data.key_press);
+          letter = letter.toUpperCase();
+
+          let path = mapping[letter];
+          let color = path.split("/")[2];
+          color = color.split(".")[0];
+
+          console.log("LETTER: " + letter);
+          console.log("PATH: " + path);
+          console.log("COLOR: " + color);
+        }
     };
 
     timeline.push(rating_wheel);
