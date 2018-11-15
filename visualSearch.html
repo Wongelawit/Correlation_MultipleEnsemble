@@ -42,7 +42,6 @@
     let subject_id = params["subjectID"];
 
     let set = get_subcondition_set(color);
-    let color_paths = get_color_paths(color);
     let subconditions = [];
 
     for (let i = 0; i < num_repeats; i++){
@@ -216,7 +215,7 @@
     // RATING WHEEL
 
     const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
-    const PATHS = get_color_paths("BLUE").sort( () => Math.random() - 0.5);
+    const PATHS = get_color_paths(color).sort( () => Math.random() - 0.5);
     let mapping = {};
 
     // Map the letters to the paths
