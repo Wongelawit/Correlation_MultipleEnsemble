@@ -153,6 +153,7 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
 
     const LETTERS = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M"];
     const CIRCLE_COORDINATES = [[0,2], [1,1], [2,0], [3,0], [4,1], [5,2], [6,3], [5,4], [4,5], [3,6], [2,6], [1,5], [0,4]];
+    //const CIRCLE_COORDINATES = [[0,3], [0,5], [1,6], [2,7], [4,8], [6,7], [7,6], [8,4], [7,2], [6,1], [4,0], [2,1], [1,2]];
     let JSONFIED_CIRCLE_COORDINATES = [];
     let LETTER_TO_COORDINATE_MAPPING = {};
 
@@ -163,7 +164,7 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
       JSONFIED_CIRCLE_COORDINATES.push(coord);
     }
 
-    let empty_item_html = `<div class="grid-item" style="margin: 10px; height: ${ITEM_SIZE}px; width: ${ITEM_SIZE}px""></div>`;
+    let empty_item_html = `<div class="grid-item" style="margin: 5px; height: ${ITEM_SIZE/2}px; width: ${ITEM_SIZE*1.3}px""></div>`;
 
     let html = 
     `<div class='grid-container' style = 'grid-template-columns: repeat(${COLUMNS}, minMax(10px, 1fr));` +
@@ -191,7 +192,9 @@ jsPsych.plugins['multiple-ensembles-vizsearch-rating'] = (function() {
   };
 
   function get_target_html (item_size, letter, target_path) {
-    return `<div class="grid-item"">`+ letter + `<img style="margin-bottom:10px; height: ${item_size}px; width: ${item_size}px" src = "` + target_path + '"</img></div>';
+    return `<div class="grid-item"">`+ letter + 
+           `<img style="margin-bottom:5px; height: ${item_size}px; width: ${item_size}px; display: block; margin-left: auto;
+           margin-right: auto;" src = "` + target_path + '"</img></div>';
   }
 
   function get_key_by_value(object, value) {
