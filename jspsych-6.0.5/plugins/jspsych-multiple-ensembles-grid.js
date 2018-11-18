@@ -156,11 +156,11 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
     let rows = 36;
     let columns = 36;
 
-    let distractor = stimuli[0];
-    let target = stimuli[1];
+    let target = stimuli[0];
+    let distractor = stimuli[1];
 
-    let distractor_number = distribution_size[1];
     let target_number = distribution_size[0];
+    let distractor_number = distribution_size[1];
 
     // Extract img dimensions so can force empty boxes to be of same height/width
     let img = new Image();
@@ -176,8 +176,12 @@ jsPsych.plugins['multiple-ensembles-grid'] = (function() {
     `<div class='grid-container' style = 'grid-template-columns: repeat(${columns}, minMax(10px, 1fr));` +
     ` grid-template-rows: repeat("${rows}"}, minMax(10px, 1fr));'>`;
 
+    let distractor_coordinates = [];
+
     let target_coordinates = generate_coordinates(rows, columns, target_number, null);
-    let distractor_coordinates = generate_coordinates(rows, columns, distractor_number, target_coordinates);
+    if (distractor_number != 0) {
+      distractor_coordinates = generate_coordinates(rows, columns, distractor_number, target_coordinates);
+    }
 
     for (let r = 0; r < rows; r++){
       for (let c = 0; c < columns; c++){

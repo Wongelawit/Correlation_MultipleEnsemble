@@ -2,11 +2,12 @@
 <html>
   <head>
     <link rel="icon" href="img/VCL_favicon.png">
-    <title>Visual Search</title>
+    <title>Numerosity Task</title>
 
     <script src="jspsych-6.0.5/jspsych.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-html-keyboard-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-image-keyboard-response.js"></script>
+    <script src="jspsych-6.0.5/plugins/jspsych-html-slider-response.js"></script>
     <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js"></script>
     <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
@@ -37,24 +38,23 @@
     let params = getUrlVars();
     let color = params["color"];
     let is_short = params["short"];
-    let num_repeats = params["repeat"]
     let subject_id = params["subjectID"];
 
-    let set = get_subcondition_set(color);
-    let subconditions = [];
+    let one_pop_set = get_subcondition_set(color,1);
+    let two_pop_set = get_subcondition_set(color, 2);
 
-    for (let i = 0; i < num_repeats; i++){
-      subconditions = subconditions.concat(set);
+    let subconditions_first = [];
+    let subconditions_second = [];
+
+    let one_pop_first = (subject_id % 2 == 1);
+
+    if (one_pop_first) {
+        subconditions_first = one_pop_set.sort( () => Math.random() - 0.5);
+        subconditions_second = two_pop_set.sort( () => Math.random() - 0.5);
+    } else {
+        subconditions_first = two_pop_set.sort( () => Math.random() - 0.5);
+        subconditions_second = one_pop_set.sort( () => Math.random() - 0.5);
     }
-
-
-    function get_other(number) {
-      if (rand == 1) {
-          return 0;
-      }  else {
-          return 1;
-      }
-    };
 
     // ---------------------------------------------------------------------
     // WELCOME
@@ -62,7 +62,7 @@
     let welcome = {
       type: 'html-keyboard-response',
       stimulus: '<div align = "center">' + '<img src="img/VCL_lab_logo.png"></img> <br>' +
-                'Welcome to the <b>Visual Search</b> Experiment.' + 
+                'Welcome to the <b>Numerosity Task</b> Experiment.' +
                 '<br><br><p><font size = 15>Press any key to begin.<p></font>' +
                 '</div>',
       data: {type: 'instruction'}
@@ -71,23 +71,47 @@
 
     // ---------------------------------------------------------------------
     // INSTRUCTIONS
-    let targetname1 = subconditions[0]["target_path"];
-    //console.log(subconditions.size());
+    let targetname1 = subconditions_first[0]["target_path"];
+
     var height = window.innerheight/4;
     var width = height/2;
 
-    let instructions = {
+    let instructions1 = {
     type: "html-keyboard-response",
     stimulus: "<div align = 'center'>" + 
               "<p>You will fixate on the cross displayed in the center of the screen before each trial." + 
-              "<p>Keep your attention there and watch for a display of different colored squares to appear." + 
-              "<p>Please press the Z if you see the target colored square, please press the M if you believe it was absent from the trial." +
+              "<p>Keep your attention there and watch for a display colored squares to appear." +
+              "<p>Afterwards you will be asked to estimate how many of this square you saw." +
               "<div style='height: 100px; display: block;'>"+
               `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img>" +
               "</div>" + "<div> <p>Press any key to continue.</div>" + 
               "</div>"          
     };
-    //timeline.push(instructions);
+
+    let instructions2 = {
+        type: "html-keyboard-response",
+        stimulus: "<div align = 'center'>" +
+            "<p>You will fixate on the cross displayed in the center of the screen before each trial." +
+            "<p>Keep your attention there and watch for a display of different colored squares to appear." +
+            "<p>Afterwards you will be asked to estimate how many of ONLY this square you saw." +
+            "<div style='height: 100px; display: block;'>"+
+            `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img>" +
+            "</div>" + "<div> <p>Press any key to continue.</div>" +
+            "</div>"
+    };
+
+    let instructions_first;
+    let instructions_second;
+
+    if (one_pop_first) {
+        instructions_first = instructions1;
+        instructions_second = instructions2;
+    } else {
+        instructions_first = instructions2;
+        instructions_second = instructions1;
+    }
+
+    timeline.push(instructions_first);
 
     // ---------------------------------------------------------------------
     // READY
@@ -96,11 +120,8 @@
       type: 'html-keyboard-response',
       stimulus: "<div align = 'center'> <font size = 20><p>Ready? We will now begin the experiment. <p>" + "<br><br><p><b>Press any key to begin.</b></p></font></div>",
       data: {type: 'instruction'}
-    }
+    };
     timeline.push(ready);
-
-    console.log("REACHED 92");
-
 
     // ---------------------------------------------------------------------
     // FIXATION
@@ -114,144 +135,97 @@
     };
 
     // ---------------------------------------------------------------------
-    // FEEDBACK
-
-    var feedback = {
-      type: 'html-keyboard-response',
-      trial_duration: null,
-      response_ends_trial: true,
-      data: {type: 'feedback'},
-      stimulus: function(){
-
-        var last_trial = JSON.parse(jsPsych.data.getLastTrialData().json());
-        var last_trial_correct = last_trial[0]["correct"];
-
-        // For debugging purposes:
-        if (last_trial_correct == -1){
-          return '<p>' + 
-                 '<font style="font-size:50px; color:blue">Exiting from experiment.<p></font>'
-        }
-
-        else if (last_trial_correct){
-          return '<p><i class="fa fa-check-circle" style="font-size:50px; color:green; margin-right: 10px;"></i>' + 
-                 '<font style="font-size:50px; color:green">Correct!<p></font>'
-        }
-        else{
-          return '<p><i class="fa fa-close" style="font-size:50px; color:red; margin-right: 10px;"></i>' + 
-                 '<font style="font-size:50px; color:red;"">Incorrect!<p></font>'
-        }
-      }
-    };
-
-    // ---------------------------------------------------------------------
     // STIMULI
 
     // Randomize order
-    let shuffled_subconditions = subconditions.sort( () => Math.random() - 0.5);
 
     // If want the shortened version, just slice out 5
     if (is_short === "true"){
-      shuffled_subconditions = shuffled_subconditions.slice(0, 6);
+      subconditions_first = subconditions_first.slice(0, 6);
+      subconditions_second = subconditions_second.slice(0,6);
     }
-
-    console.log("REACHED 147");
 
     let count = 1;
 
-    for (let subcondition of shuffled_subconditions){
+    for (let subcondition of subconditions_first){
 
       let sizes = [subcondition["target_size"], subcondition["distractor_size"]];
-      let paths = [subcondition["target_path"], subcondition["distractor_path"]].sort( () => Math.random() - 0.5 );
-      let z = paths[0];
-      let m = paths[1];
-
-      instructions = {
-          type: "html-keyboard-response",
-          stimulus: "<div align = 'center'>" +
-              "<p>You will fixate on the cross displayed in the center of the screen before each trial." +
-              "<p>Keep your attention there and watch for a display of different colored squares to appear." +
-              "<p>Please press the Z if you see more of the left colored square, please press the M if you more of the colour on the right." +
-              "<div style='height: 100px; display: block;'>"+
-              `<img style="float:left;height:100%"`+  "src='"+`${z}`+ "'></img>" + `<img style="float:right;height:100%"`+  "src='"+`${m}`+ "'></img>" +
-          "</div>" + "<div> <p>Press any key to continue.</div>" +
-              "</div>"
-      };
 
       stimuli = {
         type: 'multiple-ensembles-grid',
         choices: null,
         trial_duration: 2000,
         distribution_sizes: sizes,
-        stimuli: [subcondition["distractor_path"], subcondition["target_path"]],
+        //prompt: "<div><p>How many of these&nbsp;<img src=" +`${targetname1}`+  " alt=\"\" width=\"7\" height=\"7\" />&nbsp;did you see?</p></div>",
+        stimuli: [subcondition["target_path"], subcondition["distractor_path"]],
         response_ends_trial: false,
-      }
+      };
 
-      mask = {
-          type: 'multiple-ensembles-grid',
-          choices: ['z', 'm'],
-          trial_duration: null,
-          distribution_sizes: [75,30],
-          stimuli: ["stimuli/black.png", "stimuli/white.png"],
-          response_ends_trial: true,
-          on_start: function(trial) {
+       masks = {
+           type: 'html-slider-response',
+           labels: [8,62],
+           min: 8,
+           max: 62,
+           start: 35,
+           prompt: "<p>How many squares of this colour did you see?</p>",
+           stimulus: "<div align = 'center' style='height: 100px; display: block;'>"+
+               `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img><p></p>" +
+               "</div>",
+           on_start: function(trial) {
               trial.data = subcondition;
               trial.data.type = "test";
               trial.data.subject_id = subject_id;
               trial.data.trial = count;
-              trial.data.ratio = subcondition["ratio"];
-              trial.data.z = z;
-              trial.data.m = m;
-              trial.data.actual_ratio = sizes[0] / sizes[1];
               trial.data.count = count;
-                  count++;
-          },
-          on_finish: function(data) {
-               if (z == subcondition["target_path"]){
-                  data.right_response = 'z';
-                  data.correct = (data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode('z'));
-              }
-              else {
-                  data.right_response = 'm';
-                  data.correct = (data.key_press == jsPsych.pluginAPI.convertKeyCharacterToKeyCode('m'));
-              }
-              console.log("RESPONSE: " + data.correct);
-          }
-      }
+              count++;
+           }
+        };
 
-
-      timeline.push(instructions);
       timeline.push(fixation);
       timeline.push(stimuli);
-      timeline.push(mask);
-      timeline.push(feedback);
+      timeline.push(masks);
     }
 
-    // The better way to do it, for some reason jsPsych.timelineVariable() not working
+    timeline.push(instructions_second);
 
-    // var procedure = {
-    //     timeline: [
-    //         fixation,
-    //         {
-    //           type: 'multiple-ensembles-grid',
-    //           choices: ['z', 'm'],
-    //           trial_duration: null,
-    //           grid_size: [36, 36],
-    //           distribution_sizes: function(){
-    //             let size = jsPsych.timelineVariable('size')
-    //             return [size, 1]
-    //           },
-    //           stimuli: function(){
-    //             let distractor_path = jsPsych.timelineVariable('distractor');
-    //             let target_path = jsPsych.timelineVariable('target');
-    //             return [distractor_path, target_path];
-    //           },
-    //           response_ends_trial: true,
-    //           data: {type: 'test'}
-    //         }
-    //     ],
-    //     timeline_variables: subconditions
-    // }
-    // timeline.push(procedure);
+    for (let subcondition of subconditions_second){
+
+        let sizes = [subcondition["target_size"], subcondition["distractor_size"]];
+
+        stimuli = {
+            type: 'multiple-ensembles-grid',
+            choices: null,
+            trial_duration: 2000,
+            distribution_sizes: sizes,
+            //prompt: "<div><p>How many of these&nbsp;<img src=" +`${targetname1}`+  " alt=\"\" width=\"7\" height=\"7\" />&nbsp;did you see?</p></div>",
+            stimuli: [subcondition["target_path"], subcondition["distractor_path"]],
+            response_ends_trial: false,
+        };
+
+        masks = {
+            type: 'html-slider-response',
+            labels: [8,62],
+            min: 8,
+            max: 62,
+            start: 35,
+            prompt: "<p>How many squares of this colour did you see?</p>",
+            stimulus: "<div align = 'center' style='height: 100px; display: block;'>"+
+                `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img><p></p>" +
+                "</div>",
+            on_start: function(trial) {
+                trial.data = subcondition;
+                trial.data.type = "test";
+                trial.data.subject_id = subject_id;
+                trial.data.trial = count;
+                trial.data.count = count;
+                count++;
+            }
+        };
+
+        timeline.push(fixation);
+        timeline.push(stimuli);
+        timeline.push(masks);
+    }
 
     // ---------------------------------------------------------------------
     // INIT

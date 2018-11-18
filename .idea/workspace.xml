@@ -2,7 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="01fce6e3-ad93-4157-a80a-3c80f400e8c5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/img/example.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/1.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/10.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/11.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/12.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/2.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/3.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/4.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/5.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/6.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/7.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/8.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/9.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/blue.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/happy_face_1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/happy_face_2.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/happy_face_3.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/happy_face_4.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/examples/img/orange.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js" beforeDir="false" afterPath="$PROJECT_DIR$/jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/numerositytask.html" beforeDir="false" afterPath="$PROJECT_DIR$/numerositytask.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scripts/subcondition_generator.js" beforeDir="false" afterPath="$PROJECT_DIR$/scripts/subcondition_generator.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -49,30 +71,36 @@
     <session id="-1508799118">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="2" />
+          <entry key="project.closed" value="4" />
+          <entry key="project.open.time.10" value="1" />
           <entry key="project.open.time.2" value="1" />
           <entry key="project.open.time.4" value="1" />
-          <entry key="project.opened" value="2" />
+          <entry key="project.open.time.5" value="2" />
+          <entry key="project.opened" value="5" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
           <entry key="html" value="1" />
+          <entry key="js" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="HTML" value="1" />
+          <entry key="JavaScript" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="html" value="69" />
+          <entry key="html" value="1752" />
+          <entry key="js" value="690" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="HTML" value="69" />
+          <entry key="HTML" value="1752" />
+          <entry key="JavaScript" value="690" />
         </counts>
       </usages-collector>
     </session>
@@ -82,8 +110,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/scripts/subcondition_generator.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3247">
-              <caret line="191" column="14" selection-start-line="191" selection-start-column="14" selection-end-line="191" selection-end-column="14" />
+            <state relative-caret-position="84">
+              <caret line="115" column="17" selection-start-line="115" selection-start-column="17" selection-end-line="115" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -91,20 +119,18 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/numerositytask.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="710">
-              <caret line="275" column="50" selection-start-line="275" selection-start-column="50" selection-end-line="275" selection-end-column="50" />
+            <state relative-caret-position="-69">
+              <caret line="64" column="50" selection-start-line="64" selection-start-column="50" selection-end-line="64" selection-end-column="50" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#font#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#font#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#i#0;n#p#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#font#0;n#p#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#img#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -113,8 +139,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="472">
-              <caret line="125" column="25" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="25" />
+            <state relative-caret-position="441">
+              <caret line="125" column="21" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="21" />
             </state>
           </provider>
         </entry>
@@ -122,8 +148,12 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2890">
-              <caret line="170" column="19" selection-start-line="170" selection-start-column="19" selection-end-line="170" selection-end-column="19" />
+            <state relative-caret-position="1365">
+              <caret line="201" column="6" selection-start-line="201" selection-start-column="6" selection-end-line="201" selection-end-column="6" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -138,6 +168,7 @@
       <find>set</find>
       <find>distractor_s</find>
       <find>repeat</find>
+      <find>reached</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -146,9 +177,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
+        <option value="$PROJECT_DIR$/visualSearch.html" />
         <option value="$PROJECT_DIR$/jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js" />
         <option value="$PROJECT_DIR$/scripts/subcondition_generator.js" />
-        <option value="$PROJECT_DIR$/visualSearch.html" />
         <option value="$PROJECT_DIR$/numerositytask.html" />
       </list>
     </option>
@@ -160,7 +191,7 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="953" />
+    <option name="x" value="-7" />
     <option name="width" value="974" />
     <option name="height" value="1087" />
   </component>
@@ -169,6 +200,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -185,7 +217,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -229,11 +260,14 @@
       <workItem from="1542069315290" duration="8679000" />
       <workItem from="1542079830878" duration="127000" />
       <workItem from="1542080107237" duration="807000" />
+      <workItem from="1542494724651" duration="1257000" />
+      <workItem from="1542505262377" duration="6151000" />
+      <workItem from="1542572512778" duration="4130000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9613000" />
+    <option name="totallyTimeSpent" value="21151000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
@@ -265,43 +299,45 @@
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/visualSearch.html" />
-    <entry file="file://$PROJECT_DIR$/scripts/subcondition_generator.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3247">
-          <caret line="191" column="14" selection-start-line="191" selection-start-column="14" selection-end-line="191" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2890">
-          <caret line="170" column="19" selection-start-line="170" selection-start-column="19" selection-end-line="170" selection-end-column="19" />
+        <state relative-caret-position="1365">
+          <caret line="201" column="6" selection-start-line="201" selection-start-column="6" selection-end-line="201" selection-end-column="6" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="472">
-          <caret line="125" column="25" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="25" />
+        <state relative-caret-position="441">
+          <caret line="125" column="21" selection-start-line="125" selection-start-column="19" selection-end-line="125" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/scripts/subcondition_generator.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="84">
+          <caret line="115" column="17" selection-start-line="115" selection-start-column="17" selection-end-line="115" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/numerositytask.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="710">
-          <caret line="275" column="50" selection-start-line="275" selection-start-column="50" selection-end-line="275" selection-end-column="50" />
+        <state relative-caret-position="-69">
+          <caret line="64" column="50" selection-start-line="64" selection-start-column="50" selection-end-line="64" selection-end-column="50" />
           <folding>
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#font#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#font#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#i#0;n#p#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#font#0;n#p#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#div#0;n#div#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#1;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#div#0;n#!!top" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -3,7 +3,7 @@ const COLORS = ["BLUE", "GREEN", "RED", "YELLOW"];
 const DIMENSIONS = ["LUM", "CHR", "HUE"];
 const OPPOSITE_COLORS = {"BLUE":"YELLOW", "YELLOW":"BLUE", "GREEN":"RED", "RED":"GREEN"};
 const DISTANCES = ["-2", "-1", "+1", "+2"];
-const RATIOS = [1.12,1.14,1.2,1.5,2];
+const SET_SIZES = [12,18,27,41];
 
 const HEX_COLORS = {
 // BLUES
@@ -94,7 +94,7 @@ const HEX_COLORS = {
  *
  * @ return                 {array}  array contain assoc array of subcondition constants
  */
-function get_subcondition_set(color){
+function get_subcondition_set(color,population_size){
 
     let subconditions = [];
 
@@ -111,22 +111,35 @@ function get_subcondition_set(color){
     let opposite_name = OPPOSITE_COLORS[color];
     let opposite_hex_code = get_hex_code(color, "CHR", null);
 
-    // Push for each population ratio
-    for (let ratio of RATIOS){
-        subconditions = subconditions.concat(construct_subcondition(target_path, target_name, opposite_path, opposite_name, ratio, opposite_hex_code));
-    }
-
-    // Push all other targets
-    for (let ratio of RATIOS){
-        for (let dimension of DIMENSIONS){
-            for (let distance of DISTANCES){
-                let distractor_path = construct_path(color, dimension, distance);
-                let distractor_name = construct_name(color, dimension, distance);
-                let hex_code = get_hex_code(color, dimension, distance);
-                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, distractor_path, distractor_name, ratio, hex_code));
+    // Push for 1 population 16 repetitions of each set size
+    if (population_size === 1) {
+        for (let set_size of SET_SIZES) {
+            let i = 0;
+            while (i < 16) {
+                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, undefined, undefined, [set_size, 0], undefined));
+                i++;
             }
         }
-    }   
+    } else {
+        // Push all other targets
+        for (let set_size of SET_SIZES) {
+            for (let set_size_distractor in SET_SIZES) {
+                subconditions = subconditions.concat(construct_subcondition(target_path,target_name,opposite_path,opposite_name,[set_size,set_size_distractor], opposite_hex_code));
+            }
+        }
+        for (let set_size2 of SET_SIZES) {
+            for (let dimension of DIMENSIONS) {
+                for (let distance of DISTANCES) {
+                    for (let set_size_distractor of SET_SIZES) {
+                        let distractor_path = construct_path(color, dimension, distance);
+                        let distractor_name = construct_name(color, dimension, distance);
+                        let hex_code = get_hex_code(color, dimension, distance);
+                        subconditions = subconditions.concat(construct_subcondition(target_path, target_name, distractor_path, distractor_name, [set_size2,set_size_distractor], hex_code));
+                    }
+                }
+            }
+        }
+    }
 
     return subconditions;
 }
@@ -172,32 +185,21 @@ function get_hex_code(color, dimension, distance){
  *
  * @ return                 {array}  containing 2 assoc arrays, one for target present, one for target false
  */
-function construct_subcondition(target, target_name, distractor, distractor_name, ratio, hex_code){
-    sizes1 = generate_sizes(ratio);
-    sizes2 = generate_sizes(ratio);
+function construct_subcondition(target, target_name, distractor, distractor_name, sizes, hex_code){
+
     return [
              {"target_path": target, 
               "target_name": target_name, 
               "distractor_path": distractor, 
               "distractor_name": distractor_name,
-              "ratio": ratio,
-              "target_size": sizes1[0],
-              "distractor_size": sizes1[1],
-              "distractor_hex_code": hex_code},
-
-             {"target_path": distractor, 
-              "target_name": distractor_name, 
-              "distractor_path": target, 
-              "distractor_name": target_name,
-              "ratio": ratio,
-              "target_size": sizes2[0],
-              "distractor_size": sizes2[1],
+              "target_size": sizes[0],
+              "distractor_size": sizes[1],
               "distractor_hex_code": hex_code}
             ];
 }
 
 /* Constructs path to the svg.
- *  
+ *
  * @ param color            {string} "BLUE", "GREEN", "RED", "YELLOW"
  * @ param dimension        {string} "LUM", "CHR", "HUE"
  * @ param distance         {string} "-2", "-1", "+1", "+2"
@@ -233,13 +235,3 @@ function construct_name(color, dimension, distance){
     
     return name;
 }
-
-
-function generate_sizes(ratio) {
-    var max = (200 / (ratio + 1));
-    var min = (30 / (ratio + 1));
-    var distractor_num = Math.floor(Math.random() * (max - min + 1) + min);
-    var target_num = Math.floor(distractor_num * ratio);
-
-    return [target_num,distractor_num];
-};
