@@ -11,7 +11,8 @@
     <script src="jspsych-6.0.5/plugins/jspsych-multiple-ensembles-grid.js"></script>
     <link href="jspsych-6.0.5/css/jspsych.css" rel="stylesheet" type="text/css"></link>
 
-    <script src="scripts/subcondition_generator.js"></script> 
+    <script src="scripts/subcondition_generator.js"></script>
+    <script src="scripts/mask_generator.js"></script>
 
     <link rel="stylesheet" href="styles/styles.css">
 
@@ -71,7 +72,7 @@
 
     // ---------------------------------------------------------------------
     // INSTRUCTIONS
-    let targetname1 = subconditions_first[0]["target_path"];
+    let targetname = subconditions_first[0]["target_path"];
 
     var height = window.innerheight/4;
     var width = height/2;
@@ -83,7 +84,7 @@
               "<p>Keep your attention there and watch for a display colored squares to appear." +
               "<p>Afterwards you will be asked to estimate how many of this square you saw." +
               "<div style='height: 100px; display: block;'>"+
-              `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img>" +
+              `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
               "</div>" + "<div> <p>Press any key to continue.</div>" + 
               "</div>"          
     };
@@ -95,7 +96,7 @@
             "<p>Keep your attention there and watch for a display of different colored squares to appear." +
             "<p>Afterwards you will be asked to estimate how many of ONLY this square you saw." +
             "<div style='height: 100px; display: block;'>"+
-            `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img>" +
+            `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
             "</div>" + "<div> <p>Press any key to continue.</div>" +
             "</div>"
     };
@@ -149,14 +150,15 @@
 
     for (let subcondition of subconditions_first){
 
-      let sizes = [subcondition["target_size"], subcondition["distractor_size"]];
-
       stimuli = {
         type: 'multiple-ensembles-grid',
         choices: null,
         trial_duration: 2000,
-        distribution_sizes: sizes,
-        //prompt: "<div><p>How many of these&nbsp;<img src=" +`${targetname1}`+  " alt=\"\" width=\"7\" height=\"7\" />&nbsp;did you see?</p></div>",
+        distribution_sizes: [subcondition["target_size"],subcondition["distractor_size"]],
+        /*prompt: "<p>How many of this square did you see?" +
+            "<div align = 'center' style='height: 25px; display: block;'>"+
+            `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
+            "</div>",*/
         stimuli: [subcondition["target_path"], subcondition["distractor_path"]],
         response_ends_trial: false,
       };
@@ -167,16 +169,16 @@
            min: 8,
            max: 62,
            start: 35,
-           prompt: "<p>How many squares of this colour did you see?</p>",
-           stimulus: "<div align = 'center' style='height: 100px; display: block;'>"+
-               `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img><p></p>" +
+           stimulus: generate_stimulus(["stimuli/black.png","stimuli/white.png"], [50,50]),
+           prompt: "<p>How many of this square did you see?" +
+               "<div align = 'center' style='height: 25px; display: block;'>"+
+               `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
                "</div>",
            on_start: function(trial) {
               trial.data = subcondition;
               trial.data.type = "test";
               trial.data.subject_id = subject_id;
               trial.data.trial = count;
-              trial.data.count = count;
               count++;
            }
         };
@@ -190,14 +192,11 @@
 
     for (let subcondition of subconditions_second){
 
-        let sizes = [subcondition["target_size"], subcondition["distractor_size"]];
-
         stimuli = {
             type: 'multiple-ensembles-grid',
             choices: null,
             trial_duration: 2000,
-            distribution_sizes: sizes,
-            //prompt: "<div><p>How many of these&nbsp;<img src=" +`${targetname1}`+  " alt=\"\" width=\"7\" height=\"7\" />&nbsp;did you see?</p></div>",
+            distribution_sizes: [subcondition["target_size"],subcondition["distractor_size"]],
             stimuli: [subcondition["target_path"], subcondition["distractor_path"]],
             response_ends_trial: false,
         };
@@ -208,16 +207,16 @@
             min: 8,
             max: 62,
             start: 35,
-            prompt: "<p>How many squares of this colour did you see?</p>",
-            stimulus: "<div align = 'center' style='height: 100px; display: block;'>"+
-                `<img style="height:100%"`+  "src='"+`${targetname1}`+ "'></img><p></p>" +
+            prompt: "<p>How many of this square did you see?" +
+                "<div align = 'center' style='height: 25px; display: block;'>"+
+                `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
                 "</div>",
+            stimulus: generate_stimulus(["stimuli/black.png","stimuli/white.png"], [50,50]),
             on_start: function(trial) {
                 trial.data = subcondition;
                 trial.data.type = "test";
                 trial.data.subject_id = subject_id;
                 trial.data.trial = count;
-                trial.data.count = count;
                 count++;
             }
         };

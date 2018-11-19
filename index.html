@@ -63,11 +63,6 @@
       <input type="text" class="form-control" id="subjectID_input" placeholder="12345" style="text-align: center">
     </div>
 
-    <div class="form-row" style="margin: 20px">
-      <label for="repeat_input">Number of subcondition repeats:</label>
-      <input type="text" class="form-control" id="repeat_input" placeholder="4" style="text-align: center">
-    </div>
-
     <p>
     <p>
 
@@ -110,7 +105,6 @@
         let url = "numerositytask.html?color=" + color;
 
         // Check if want the shortened version or not
-        let repeats = document.getElementById("repeat_input").value;
         let subject_id = document.getElementById("subjectID_input").value;
         let checked = document.getElementById("defaultCheck1").checked;
 
@@ -118,12 +112,6 @@
           url += "&short=true";
         } else {
           url += "&short=false";
-        }
-
-        if (repeats){
-          url += "&repeat=" + repeats;
-        } else {
-          url += "&repeat=4";
         }
 
         if (subject_id){

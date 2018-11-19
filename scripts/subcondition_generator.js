@@ -116,15 +116,15 @@ function get_subcondition_set(color,population_size){
         for (let set_size of SET_SIZES) {
             let i = 0;
             while (i < 16) {
-                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, undefined, undefined, [set_size, 0], undefined));
+                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, undefined, undefined, [set_size, 0], undefined,"1 Population"));
                 i++;
             }
         }
     } else {
         // Push all other targets
         for (let set_size of SET_SIZES) {
-            for (let set_size_distractor in SET_SIZES) {
-                subconditions = subconditions.concat(construct_subcondition(target_path,target_name,opposite_path,opposite_name,[set_size,set_size_distractor], opposite_hex_code));
+            for (let distractor_size of SET_SIZES) {
+                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, opposite_path, opposite_name, [set_size, distractor_size], opposite_hex_code, opposite_name));
             }
         }
         for (let set_size2 of SET_SIZES) {
@@ -134,7 +134,7 @@ function get_subcondition_set(color,population_size){
                         let distractor_path = construct_path(color, dimension, distance);
                         let distractor_name = construct_name(color, dimension, distance);
                         let hex_code = get_hex_code(color, dimension, distance);
-                        subconditions = subconditions.concat(construct_subcondition(target_path, target_name, distractor_path, distractor_name, [set_size2,set_size_distractor], hex_code));
+                        subconditions = subconditions.concat(construct_subcondition(target_path, target_name, distractor_path, distractor_name, [set_size2,set_size_distractor], hex_code,dimension + " " + distance));
                     }
                 }
             }
@@ -180,15 +180,17 @@ function get_hex_code(color, dimension, distance){
  * @ param target_name      {string} Name of target color
  * @ param distractor       {string} Path to distractor
  * @ param distractor_name  {string} Name of distractor color
- * @ param ratio             {int}   Ratio of population sizes
+ * @ param sizes            {array}  Array of population sizes [target,distractor]
  * @ param hex_code         {string} Hex code of distractor color
+ * @ param name             {string} Condition name
  *
  * @ return                 {array}  containing 2 assoc arrays, one for target present, one for target false
  */
-function construct_subcondition(target, target_name, distractor, distractor_name, sizes, hex_code){
+function construct_subcondition(target, target_name, distractor, distractor_name, sizes, hex_code,name){
 
     return [
-             {"target_path": target, 
+             {"condition_name": name,
+              "target_path": target,
               "target_name": target_name, 
               "distractor_path": distractor, 
               "distractor_name": distractor_name,
