@@ -155,10 +155,10 @@
         choices: null,
         trial_duration: 2000,
         distribution_sizes: [subcondition["target_size"],subcondition["distractor_size"]],
-        /*prompt: "<p>How many of this square did you see?" +
+        prompt: "</div></div><p>How many of this square do you see?" +
             "<div align = 'center' style='height: 25px; display: block;'>"+
             `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
-            "</div>",*/
+            "</div>",
         stimuli: [subcondition["target_path"], subcondition["distractor_path"]],
         response_ends_trial: false,
       };
@@ -173,7 +173,7 @@
            prompt: "<p>How many of this square did you see?" +
                "<div align = 'center' style='height: 25px; display: block;'>"+
                `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
-               "</div>",
+               "</div><p>  </p>",
            on_start: function(trial) {
               trial.data = subcondition;
               trial.data.type = "test";
