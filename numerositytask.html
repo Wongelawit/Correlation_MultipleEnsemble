@@ -153,12 +153,12 @@
       stimuli = {
         type: 'multiple-ensembles-grid',
         choices: null,
+        prompt: "</div></div><p>How many of this square do you see?" +
+              "<div align = 'center' style='height: 25px; display: block;'>"+
+              `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
+              "</div>",
         trial_duration: 2000,
         distribution_sizes: [subcondition["target_size"],subcondition["distractor_size"]],
-        prompt: "</div></div><p>How many of this square do you see?" +
-            "<div align = 'center' style='height: 25px; display: block;'>"+
-            `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
-            "</div>",
         stimuli: [subcondition["target_path"], subcondition["distractor_path"]],
         response_ends_trial: false,
       };
@@ -195,6 +195,10 @@
         stimuli = {
             type: 'multiple-ensembles-grid',
             choices: null,
+            prompt: "</div></div><p>How many of this square do you see?" +
+                "<div align = 'center' style='height: 25px; display: block;'>"+
+                `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
+                "</div>",
             trial_duration: 2000,
             distribution_sizes: [subcondition["target_size"],subcondition["distractor_size"]],
             stimuli: [subcondition["target_path"], subcondition["distractor_path"]],
@@ -210,7 +214,7 @@
             prompt: "<p>How many of this square did you see?" +
                 "<div align = 'center' style='height: 25px; display: block;'>"+
                 `<img style="height:100%"`+  "src='"+`${targetname}`+ "'></img>" +
-                "</div>",
+                "</div><p>  </p>",
             stimulus: generate_stimulus(["stimuli/black.png","stimuli/white.png"], [50,50]),
             on_start: function(trial) {
                 trial.data = subcondition;
