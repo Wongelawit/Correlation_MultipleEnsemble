@@ -12,11 +12,11 @@ function generate_stimulus(stimuli, distribution_size) {
     // Extract img dimensions so can force empty boxes to be of same height/width
     let img = new Image();
     img.src = distractor;
-    let item_width = img.width;
-    let item_height = img.height;
+    let item_width = 11;
+    let item_height = 11;
 
-    let distractor_html = '<div class="grid-item"><img src = "' + distractor + '"</img></div>';
-    let target_html     = '<div class="grid-item""><img src = "' + target + '"</img></div>';
+    let distractor_html = '<div class="grid-item"><img src = "' + distractor + '"style="width:11px"></img></div>';
+    let target_html     = '<div class="grid-item""><img src = "' + target + '"style="width:11px"></img></div>';
     let empty_item_html = `<div class="grid-item" style="height: ${item_height}px; width: ${item_width}px""></div>`;
 
     let html =

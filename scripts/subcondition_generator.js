@@ -105,6 +105,7 @@ function get_subcondition_set(color,population_size){
     // Get target path
     let target_path = construct_path(color, "CHR", null); // Force CHR, all target hex same anyway
     let target_name = color;
+    let target_hex = get_hex_code(color,"CHR");
     
     // Get opposite color w/ same dimension
     let opposite_path = get_opposite_target(color, "CHR"); // Force CHR, all target hex same anyway
@@ -116,7 +117,7 @@ function get_subcondition_set(color,population_size){
         for (let set_size of SET_SIZES) {
             let i = 0;
             while (i < 16) {
-                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, undefined, undefined, [set_size, 0], undefined,"1 Population"));
+                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, undefined, undefined, [set_size, 0], undefined,"1 Population",target_hex));
                 i++;
             }
         }
@@ -124,7 +125,7 @@ function get_subcondition_set(color,population_size){
         // Push all other targets
         for (let set_size of SET_SIZES) {
             for (let distractor_size of SET_SIZES) {
-                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, opposite_path, opposite_name, [set_size, distractor_size], opposite_hex_code, opposite_name));
+                subconditions = subconditions.concat(construct_subcondition(target_path, target_name, opposite_path, opposite_name, [set_size, distractor_size], opposite_hex_code, opposite_name,target_hex));
             }
         }
         for (let set_size2 of SET_SIZES) {
@@ -134,7 +135,7 @@ function get_subcondition_set(color,population_size){
                         let distractor_path = construct_path(color, dimension, distance);
                         let distractor_name = construct_name(color, dimension, distance);
                         let hex_code = get_hex_code(color, dimension, distance);
-                        subconditions = subconditions.concat(construct_subcondition(target_path, target_name, distractor_path, distractor_name, [set_size2,set_size_distractor], hex_code,dimension + " " + distance));
+                        subconditions = subconditions.concat(construct_subcondition(target_path, target_name, distractor_path, distractor_name, [set_size2,set_size_distractor], hex_code,dimension + " " + distance,target_hex));
                     }
                 }
             }
@@ -186,12 +187,13 @@ function get_hex_code(color, dimension, distance){
  *
  * @ return                 {array}  containing 2 assoc arrays, one for target present, one for target false
  */
-function construct_subcondition(target, target_name, distractor, distractor_name, sizes, hex_code,name){
+function construct_subcondition(target, target_name, distractor, distractor_name, sizes, hex_code,name,target_hex){
 
     return [
              {"condition_name": name,
               "target_path": target,
-              "target_name": target_name, 
+              "target_name": target_name,
+              "target_hex": target_hex,
               "distractor_path": distractor, 
               "distractor_name": distractor_name,
               "target_size": sizes[0],
